@@ -4,10 +4,11 @@ The paper numbers come from the wandb CSVs in `data/`, not from checkpoints. Thi
 records which trained models exist and whether they match those CSVs.
 
 **Where the checkpoints are.** The only full copy is on server-3090 at
-`/mnt/hdd10tb/edwin/results_hierarchical/`: 932 `.pth` files, 749 in `ckpts/` and 183 in `deprecated/`. That folder's `README.md` gives
-its serial list. No Hierarchical checkpoint is on the ERISLab Hub or in `fgir_zoo`. The
-FGIR-Backbones Model Zoo session is preparing two Hub repositories: one for the backbone
-study, one for the pseudo-hierarchy study.
+`/mnt/hdd10tb/edwin/results_hierarchical/`, mirrored in ed-storage's archive: 932 `.pth`
+files. `ckpts/` holds the 236 files chosen for release; `deprecated/` holds the other 696.
+The FGIR-Backbones Model Zoo session publishes the release as two ERISLab Hub repositories:
+- `Hierarchical-Backbones`: serials 21, 58, 59 and 60;
+- `Hungarian-Pseudo-Hierarchies`: serials 56, 57, 84 and 85.
 
 A second set comes from ed520's training folders, for runs that exist nowhere else: serials
 100, 102, 107 and 108. It is deprecated and will not be released. It sits in
@@ -49,27 +50,27 @@ are in `results_all/checkpoints/`.
 
 | Folder under `results_hierarchical/` | Serial in file | Files | Match a CSV row | Accuracy equal | Notes |
 |---|---|---|---|---|---|
-| `ckpts/real_hierarchy_ckpts` | 21 | 63 | 0 | – | No CSV holds serial 21. It reruns serial 23 at each backbone's best setting (seed 1): on average 0.13 points below the serial-23 maximum. |
-| `ckpts/baseline_ckpts` | 32 | 63 | 61 | 24 | 37 differ from the CSV row, by up to 54.4 points (CLIP on cars: 27.47 against 81.88). The serial-32 CSV rows mix two run generations. |
-| `ckpts/pseudo_hierarchy_ckpts` | 40 | 184 | 182 | 178 | Largest difference 0.41. |
-| `ckpts/serial54_ckpts` | 39 | 140 | 140 | 140 | The last runs (AdamW 5e-6) of SoyLocal HPH serial 54, renamed from `serial39_soylocal_ckpts`; the config inside still says 39. Includes the VCIP26 headline DeiT at ratio 90. |
-| `ckpts/serial55_ckpts` | 32 | 21 | 21 | 21 | The last runs of the SoyLocal baseline serial 55, renamed from `baseline_ckpts`; the config inside still says 32. |
-| `ckpts/serial56_ckpts` … `serial61_ckpts` | 56–61 | 151 | 0 | – | Best-learning-rate reruns; no CSV holds these serials. Per the Model Zoo session's wandb match, serial 60 reruns serial 24 (63 files). |
-| `ckpts/serial81_ckpts` … `serial86_ckpts` | 81–86 | 85 | 83 | 83 | Exact. |
-| `ckpts/serial102_ckpts`, `serial103_ckpts` | 102, 103 | 42 | 42 | 42 | Exact. |
-| `deprecated/*` | 29, 32–34, 39–41, 51, 57, 70–73, 84, 85, 91–94, 110–310 | 183 | 115 | 100 | See the next section. The 41 TGDA files load only into stock timm. |
+| `ckpts/real_hierarchy_ckpts` | 21 | 63 | 0 | – | Released. No CSV holds serial 21. It reruns serial 23 at each backbone's best setting (seed 1): on average 0.13 points below the serial-23 maximum. |
+| `ckpts/serial56_ckpts` … `serial60_ckpts` | 56–60 | 147 | 0 | – | Released. Best-learning-rate reruns; no CSV holds these serials. Serial 60 reruns serial 24. |
+| `ckpts/serial84_ckpts`, `serial85_ckpts` | 84, 85 | 26 | 25 | 25 | Released. Exact. |
+| `deprecated/not_released_20260929/*` | 32, 39, 40, 55, 61, 81–83, 86, 102, 103 | 513 | 504 | 463 | Not released; the rows below break it down. |
+| … `baseline_ckpts` | 32 | 63 | 61 | 24 | 37 differ from the CSV row, by up to 54.4 points (CLIP on cars: 27.47 against 81.88). The serial-32 CSV rows mix two run generations. |
+| … `pseudo_hierarchy_ckpts` | 40 | 184 | 182 | 178 | Largest difference 0.41. |
+| … `serial54_ckpts` | 39 | 140 | 140 | 140 | The last runs (AdamW 5e-6) of SoyLocal HPH serial 54; the config inside still says 39. Includes the VCIP26 headline DeiT at ratio 90. |
+| … `serial55_ckpts` | 32 | 21 | 21 | 21 | The last runs of the SoyLocal baseline serial 55; the config inside still says 32. |
+| … `serial61_ckpts`, `serial81_ckpts` … `serial86_ckpts` | 61, 81–83, 86 | 63 | 58 | 58 | Exact where matched. |
+| … `serial102_ckpts`, `serial103_ckpts` | 102, 103 | 42 | 42 | 42 | Exact. |
+| other `deprecated/*` | 29, 32–34, 39–41, 51, 57, 70–73, 84, 85, 91–94, 110–310 | 183 | 115 | 100 | See the next section. The 41 TGDA files load only into stock timm. |
 
 ## Deprecated checkpoints
 
-`results_hierarchical/deprecated/` holds the files retired so far. Nothing has been deleted.
+`results_hierarchical/deprecated/` holds every file not released. Nothing has been deleted.
 The folder's `README.md` gives the reason for each group and how to restore it. File renames
-are listed in `results_hierarchical/RENAMES_20260929.tsv`. The release keeps serials 21, 58,
-59 and 60 (backbone study) and 56, 57, 84 and 85 (pseudo-hierarchy study): 236 files. Other
-files in `ckpts/` may still move to `deprecated/`; that release is decided in the
-FGIR-Backbones Model Zoo session.
+are listed in `results_hierarchical/RENAMES_20260929.tsv`.
 
 | Folder under `deprecated/` | Files | Why |
 |---|---|---|
+| `not_released_20260929` | 513 | Sweep tails and other serials outside the release set, with their folder names kept. |
 | `hifa_head` | 29 | HiFA-head experiments, unused. 10 of them (`*_fz_110`) do not load: their weights hold `model.head.add_pre_classifiers.3.*`, which the stored config does not build. |
 | `pseudo_hierarchy_serial39` | 45 | First pseudo-hierarchy runs (ICME26's BPH section), replaced by serial 40. 43 match no wandb run; 2 match on name and serial only. |
 | `from_tgda_20260922` | 41 | The older serial-32 run generation, plain timm models. Their wandb runs no longer exist, and `ckpts/baseline_ckpts` holds the same configurations. |
@@ -100,7 +101,8 @@ No checkpoints exist anywhere for the serial 23 and 24 sweeps (the backbone resu
 CVGIP25, ACMMMW25 and ICME26). Their best settings were rerun as serials 21 and 60.
 
 Among the VCIP26 headline numbers:
-- DeiT with HPH on SoyLocal (64.33) has an exact checkpoint.
+- DeiT with HPH on SoyLocal (64.33) has an exact checkpoint, not released:
+  `deprecated/not_released_20260929/serial54_ckpts/soylocal_90_hideit_base_patch16_224.fb_in1k_54.pth`.
 - Its baseline (51.83), the ViT-B SoyLocal maximum and the Cotton and SoyAgeing-R1 maxima have
   none. Those maxima were reached at learning rates other than the saved last one.
 
