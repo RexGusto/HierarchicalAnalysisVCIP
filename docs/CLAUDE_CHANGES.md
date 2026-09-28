@@ -47,3 +47,23 @@ Dated record of substantive changes. Open items are in `NEXT_STEPS.md`.
     `/mnt/hdd10tb/edwin/results_hierarchical` to CSV rows and strict-loads two per folder.
 - **Docs.** `README.md`, `CLAUDE.md`, `requirements.txt` and every file in `docs/` were
   written from the decks, the CSVs and the paper sources.
+
+## 2026-09-29 — move to HierarchicalAnalysis; CVGIP versions; checkpoint deprecation
+
+- **New repo.** The repo moved from `Hierarchical_plot` (remote `RexGusto/Hierarchical_plot`,
+  where `arkel23` has no push access) to `HierarchicalAnalysis` (remote
+  `arkel23/HierarchicalAnalysis`), with full history. The old checkout went to
+  `/mnt/hdd10tb/edwin/deprecated/Hierarchical_plot_20260929/`.
+- **CVGIP25 versions.** Per the author, the committed CVGIP25 PDF is the submission and the
+  LaTeX source is the camera-ready. The camera-ready PDF was built from the source and added
+  as `drafts/CVGIP25/CVGIP25_camera_ready.pdf`. The entry above calls the source "a later
+  revision"; that is corrected here.
+- **Checkpoints moved.** 51 checkpoints moved into `results_hierarchical/deprecated/`: the 41
+  `from_tgda_20260922` files, 2 serial-57 ratio-70 files and 8 serial-84/85 files with no
+  wandb run. The folder's README has restore commands. `docs/CHECKPOINTS.md` lists every
+  deprecated group.
+- **Checker rule.** `verify_paper_numbers` now derives the SparK and DeiT gains from stored
+  values rounded once; the paper does not print their operands.
+- **NEXT_STEPS.** It now opens with the VCIP26 corrections as numbered before/after items,
+  including the author block with Kevin Tandian as third author and Augusto and Edwin as
+  equal-contribution first authors.

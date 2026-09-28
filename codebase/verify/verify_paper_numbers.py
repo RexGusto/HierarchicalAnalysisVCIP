@@ -55,8 +55,9 @@ def number_checks(tex, soy, leaves, hph, base):
         rows.append(dict(number=label, paper=value, derived=rnd(derive(dp), dp)))
 
     check('DeiT HPH max on SoyLocal', r'maximum accuracy of \\textbf\{([\d.]+)', lambda dp: hph[DEIT])
-    check('DeiT gain over baseline', r'DeiT obtains the largest gain of \\textbf\{([\d.]+)', lambda dp: rnd(hph[DEIT], dp) - rnd(base[DEIT], dp))
-    check('SparK gain over baseline', r'ResNet SparK achieves the largest improvement, increasing the maximum accuracy by \\textbf\{([\d.]+)', lambda dp: rnd(hph[SPARK], dp) - rnd(base[SPARK], dp))
+    # the paper does not print the two maxima, so a gain is the stored difference rounded once
+    check('DeiT gain over baseline', r'DeiT obtains the largest gain of \\textbf\{([\d.]+)', lambda dp: hph[DEIT] - base[DEIT])
+    check('SparK gain over baseline', r'ResNet SparK achieves the largest improvement, increasing the maximum accuracy by \\textbf\{([\d.]+)', lambda dp: hph[SPARK] - base[SPARK])
     check('largest gain over baseline (abstract)', r'absolute gains of up to \\textbf\{([\d.]+)', lambda dp: (hph - base).max())
     check('table: ViT HPH SoyLocal', r'HPH \(Ours\) & \\underline\{[\d.]+\} & \\underline\{[\d.]+\} & \\underline\{([\d.]+)\}', lambda dp: hph[VIT])
     check('table: ViT HPH Cotton', r'HPH \(Ours\) & \\underline\{([\d.]+)\}', lambda dp: leaf_max('cotton', VIT))

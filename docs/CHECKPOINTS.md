@@ -4,7 +4,7 @@ The paper numbers come from the wandb CSVs in `data/`, not from checkpoints. Thi
 records which trained models exist and whether they match those CSVs.
 
 **Where the checkpoints are.** The only full copy is on server-3090 at
-`/mnt/hdd10tb/edwin/results_hierarchical/`: 932 `.pth` files. That folder's `README.md` gives
+`/mnt/hdd10tb/edwin/results_hierarchical/`: 932 `.pth` files, 756 in `ckpts/` and 176 in `deprecated/`. That folder's `README.md` gives
 its serial list. No Hierarchical checkpoint is on the ERISLab Hub or in `fgir_zoo`. The
 FGIR-Backbones Model Zoo session is preparing two Hub repositories: one for the backbone
 study, one for the pseudo-hierarchy study.
@@ -34,7 +34,7 @@ The FGIR-Backbones Model Zoo session ran two further checks. Frozen copies of it
 are in `results_all/checkpoints/`.
 - **Load test** (`loadtest_all.csv`): all 932 files, strict. 922 load. The 10 failures are
   `deprecated/hifa_head/*_fz_110`, whose weights hold head layers their stored config does not
-  build. The 41 `from_tgda_20260922` files are plain timm models and load into stock timm 0.9.12
+  build. The 41 `deprecated/from_tgda_20260922` files are plain timm models and load into stock timm 0.9.12
   after dropping the `model.` prefix and renaming the head.
 - **wandb match** (`wandb_match.csv`): each file matched to its run in `nycu_pcs/Hierarchical`.
   819 files match a run on configuration and final accuracy, 11 on name and serial only, and
@@ -46,11 +46,44 @@ are in `results_all/checkpoints/`.
 | `ckpts/baseline_ckpts` | 32 | 84 | 82 | 45 | 37 differ from the CSV row, by up to 54.4 points (CLIP on cars: 27.47 against 81.88). The serial-32 CSV rows mix two run generations. The 21 SoyLocal files are the serial-55 SoyLocal baseline, and all 21 equal their serial-55 rows. |
 | `ckpts/pseudo_hierarchy_ckpts` | 40 | 184 | 182 | 178 | Largest difference 0.41. |
 | `ckpts/serial39_soylocal_ckpts` | 39 | 147 | 147 | 142 | These are the last runs (AdamW 5e-6) of SoyLocal serial 54; 140 match the serial-54 rows exactly. Includes the VCIP26 headline DeiT, ratio 90. Five SigLIP-v2 files match none of their two CSV rows. |
-| `ckpts/serial56_ckpts` … `serial61_ckpts` | 56–61 | 153 | 0 | – | Best-learning-rate reruns; no CSV holds these serials. Per the Model Zoo session's wandb match, serial 60 reruns serial 24 (63 files). |
-| `ckpts/serial81_ckpts` … `serial86_ckpts` | 81–86 | 93 | 85 | 83 | 81, 82, 83 and 86 match exactly; 84 and 85 differ by at most 0.42. |
+| `ckpts/serial56_ckpts` … `serial61_ckpts` | 56–61 | 151 | 0 | – | Best-learning-rate reruns; no CSV holds these serials. Per the Model Zoo session's wandb match, serial 60 reruns serial 24 (63 files). |
+| `ckpts/serial81_ckpts` … `serial86_ckpts` | 81–86 | 85 | 83 | 83 | Exact. |
 | `ckpts/serial102_ckpts`, `serial103_ckpts` | 102, 103 | 42 | 42 | 42 | Exact. |
-| `deprecated/*` | 29, 33, 34, 39–41, 51, 70–73, 91–94, 110–310 | 125 | 65 | 58 | Retired experiments. |
-| `from_tgda_20260922/*` | 32 | 41 | 41 | 40 | Plain timm models from TGDA; the code repo's `TIMM` cannot build them. |
+| `deprecated/*` | 29, 32–34, 39–41, 51, 57, 70–73, 84, 85, 91–94, 110–310 | 176 | 108 | 98 | See the next section. The 41 TGDA files load only into stock timm. |
+
+## Deprecated checkpoints
+
+`results_hierarchical/deprecated/` holds every file that is not kept for release. Nothing has
+been deleted. The folder's `README.md` gives the reason for each group and how to restore it.
+
+| Folder under `deprecated/` | Files | Why |
+|---|---|---|
+| `hifa_head` | 29 | HiFA-head experiments, unused. 10 of them (`*_fz_110`) do not load: their weights hold `model.head.add_pre_classifiers.3.*`, which the stored config does not build. |
+| `pseudo_hierarchy_serial39` | 45 | First pseudo-hierarchy runs (ICME26's BPH section), replaced by serial 40. 43 match no wandb run; 2 match on name and serial only. |
+| `from_tgda_20260922` | 41 | The older serial-32 run generation, plain timm models. Their wandb runs no longer exist, and `ckpts/baseline_ckpts` holds the same configurations. |
+| `serial57_ratio70_no_run` | 2 | SoyLocal DeiT-3 at ratio 70 with no wandb run; serial 57 is documented as ratio 90. |
+| `serial84_85_no_run` | 8 | Serial 84 (5) and 85 (3) files whose seed and accuracy match no wandb run. |
+| `feature_visualization_serial34`, `serial29_ckpts`, `serial33_ckpts` | 26 | Feature-visualisation and early runs. |
+| `other_hyperparameters`, `pseudo_other_extractor` | 9 | Hyperparameter and extractor studies with negative or duplicate results. |
+| `serial91_ckpts` … `serial94_ckpts` | 16 | Same-class mix and hierarchical label smoothing. |
+
+## Files with no wandb run
+
+The Model Zoo session's match (`results_all/checkpoints/wandb_match.csv`, written before the
+moves above) finds no wandb run for 102 files:
+- 41 in `from_tgda_20260922` and 43 in `pseudo_hierarchy_serial39`: older runs whose wandb
+  entries were replaced; both folders are deprecated.
+- 7 SigLIP-v2 files in `ckpts/serial39_soylocal_ckpts`: older runs of the same serial-54
+  configuration. They stay, because the proposed release keeps all 147 files of that folder.
+- 2 in `ckpts/serial57_ckpts` and 6 in `ckpts/serial84_ckpts` / `serial85_ckpts`, deprecated
+  above.
+- 3 in other `deprecated/` folders.
+
+Another 11 files match a run on name and serial only. They are 6 CUB ResNets at SGD 0.1 in
+`baseline_ckpts`, 1 in `pseudo_hierarchy_ckpts`, 2 in `pseudo_hierarchy_serial39`, and 1 each
+in serials 84 and 85; those last two are deprecated above.
+
+## Coverage of the papers
 
 No checkpoints exist anywhere for the serial 23 and 24 sweeps (the backbone results of
 CVGIP25, ACMMMW25 and ICME26). Their best settings were rerun as serials 21 and 60.
