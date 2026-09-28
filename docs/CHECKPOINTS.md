@@ -6,9 +6,20 @@ records which trained models exist and whether they match those CSVs.
 **Where the checkpoints are.** The only full copy is on server-3090 at
 `/mnt/hdd10tb/edwin/results_hierarchical/`, mirrored in ed-storage's archive: 932 `.pth`
 files. `ckpts/` holds the 236 files chosen for release; `deprecated/` holds the other 696.
-The FGIR-Backbones Model Zoo session publishes the release as two ERISLab Hub repositories:
-- `Hierarchical-Backbones`: serials 21, 58, 59 and 60;
-- `Hungarian-Pseudo-Hierarchies`: serials 56, 57, 84 and 85.
+The release is public on the HuggingFace Hub:
+- `ERISLab/Hierarchical-Backbones`: serials 21, 58, 59 and 60, 168 files, cited as CVGIP
+  2025. Collection:
+  https://huggingface.co/collections/ERISLab/hierarchical-fgir-backbones-and-pretraining-cvgip-2025-6abab163857f4e028b3a38a1
+- `ERISLab/Hungarian-Pseudo-Hierarchies`: serials 56, 57, 84 and 85, 68 files, cited as VCIP
+  2026. Collection:
+  https://huggingface.co/collections/ERISLab/hungarian-pseudo-hierarchies-vcip-2026-6abab164723179ddde8d716c
+
+Each repo holds a `manifest.csv`; the cards report each file's own accuracy. `fgir_zoo`
+loads them, for example
+`fgir_zoo.hierarchical.create_model('serial_57/soylocal_90_hideit_base_patch16_224.fb_in1k_57')`.
+The cards cite the papers with `eprint = {TBA}`; update them when arXiv IDs exist. The Model
+Zoo session's per-file triage (accuracy against each sweep's maximum, and its keep and
+deprecate proposals) is copied to `results_all/checkpoints/triage/`.
 
 A second set comes from ed520's training folders, for runs that exist nowhere else: serials
 100, 102, 107 and 108. It is deprecated and will not be released. It sits in
