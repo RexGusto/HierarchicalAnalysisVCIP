@@ -11,7 +11,7 @@ import statsmodels.formula.api as smf
 from utils import filter_df, preprocess_df
 from utils import add_setting
 from utils import METHODS_DIC
-from plot import make_plot
+from codebase.plots.plot import make_plot
 
 
 def stats_analysis(df):

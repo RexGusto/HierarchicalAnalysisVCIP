@@ -6,7 +6,7 @@ import pandas as pd
 from utils import preprocess_df, filter_df, add_all_cols_group, \
     round_combine_str_mean_std, sort_df, rename_var, \
     DATASETS_UFGIR, DATASETS_DIC, METHODS_DIC
-from plot import make_plot
+from codebase.plots.plot import make_plot
 
 def compute_z_scores(grouped_df, columns):
     z_scores = {}

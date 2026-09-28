@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 from utils import filter_df, rename_vars, drop_na, preprocess_df, sort_df, \
     METHODS_VIT, METHODS_RESNET, METHODS_DIC, DATASETS_DIC
-from compute_correlations import compute_correlations
+from codebase.analyses.compute_correlations import compute_correlations
 
 
 def make_plot(args, df):
@@ -124,7 +124,7 @@ def parse_args():
     parser.add_argument('--input_file', type=str,
                         # default=os.path.join('data', 'hierarchical_test.csv'),
                         # default=os.path.join('results_all','acc', 'summarized_acc_hierarchical_main.csv'),
-                        default=os.path.join('results_all','cost', 'cost_hierarchical.csv'),
+                        default=os.path.join('results_all', 'cost', 'cost_val_acc_level1.csv'),
                         help='filename for input .csv file')
 
     parser.add_argument('--keep_datasets', nargs='+', type=str, default=None)

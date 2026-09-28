@@ -2,12 +2,12 @@ import os
 import argparse
 import numpy as np
 import pandas as pd
-from compute_correlations import compute_correlations
+from codebase.analyses.compute_correlations import compute_correlations
 
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_file', type=str,
-                        default=os.path.join('results_all', 'cost', 'cost_hierarchical.csv'),
+                        default=os.path.join('results_all', 'cost', 'cost_val_acc_level1.csv'),
                         help='filename for input .csv file')
     parser.add_argument('--acc_level', nargs='*', default=[],
                         help='Pick the acc_level')

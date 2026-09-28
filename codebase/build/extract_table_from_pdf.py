@@ -41,7 +41,7 @@ def parse_args():
 
     # input
     parser.add_argument('--input_file', type=str,
-                        default=os.path.join('papers', 'which_tokens.pdf'),
+                        default=os.path.join('deprecated', 'old', 'papers', 'which_tokens.pdf'),
                         help='paper pdf title')
     parser.add_argument('--pdf_page_number', type=int, default=4,
                         help='pdf page number starting from 0')
