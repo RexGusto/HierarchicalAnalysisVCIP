@@ -105,9 +105,13 @@ def figure_checks(plots_dir, paper_dir):
     for name in PAPER_FIGURES:
         new = np.asarray(Image.open(os.path.join(plots_dir, f'{name}.png')).convert('RGB'), dtype=np.int16)
         old = np.asarray(Image.open(os.path.join(paper_dir, f'{name}.png')).convert('RGB'), dtype=np.int16)
-        same_size = new.shape == old.shape
-        differ = float((np.abs(new - old).max(axis=2) > 32).mean()) if same_size else float('nan')
-        rows.append(dict(figure=name, same_size=same_size, pixels_differing=round(differ, 4)))
+        # tight bounding boxes can round a pixel differently; compare the best alignment within 2 px
+        close = all(abs(a - b) <= 2 for a, b in zip(new.shape, old.shape))
+        h, w = min(new.shape[0], old.shape[0]) - 2, min(new.shape[1], old.shape[1]) - 2
+        differ = min(float((np.abs(new[dy:dy + h, dx:dx + w] - old[:h, :w]).max(axis=2) > 32).mean())
+                     for dy in range(3) for dx in range(3)) if close else float('nan')
+        rows.append(dict(figure=name, size_new='x'.join(map(str, new.shape[1::-1])), size_paper='x'.join(map(str, old.shape[1::-1])),
+                         same_size=close, pixels_differing=round(differ, 4)))
     return pd.DataFrame(rows)
 
 
@@ -116,7 +120,8 @@ def main():
     parser.add_argument('--tex', type=str, default=os.path.join('drafts', 'VCIP26', 'latex', 'camera_ready.tex'))
     parser.add_argument('--data_dir', type=str, default='data')
     parser.add_argument('--plots_dir', type=str, default=os.path.join('results_all', 'plots'))
-    parser.add_argument('--max_pixels_differing', type=float, default=0.01)
+    # rendering differences across matplotlib versions reach ~1.1%; the 54/55 variant of compare_soylocal differs by 1.7%
+    parser.add_argument('--max_pixels_differing', type=float, default=0.015)
     args = parser.parse_args()
 
     with open(args.tex) as f:

@@ -16,7 +16,10 @@ def compare(path, ref):
     numeric = [c for c in shared if pd.api.types.is_numeric_dtype(old[c]) and c not in ('serial', 'seed', 'n_cluster_ratio', 'lr', 'lr_acc_max')]
     keys = [c for c in shared if c not in numeric]
     for df in (old, new):
-        df[keys] = df[keys].astype(str)
+        for k in keys:
+            # 50 and 50.0 are the same key
+            as_num = pd.to_numeric(df[k], errors='coerce')
+            df[k] = as_num.astype(float).round(10).astype(str).where(as_num.notna() | df[k].isna(), df[k].astype(str))
     merged = old[shared].merge(new[shared], on=keys, how='outer', suffixes=('_old', '_new'), indicator=True)
     unmatched = int((merged['_merge'] != 'both').sum())
     both = merged[merged['_merge'] == 'both']

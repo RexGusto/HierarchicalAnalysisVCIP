@@ -26,6 +26,8 @@ datasets=('aircraft' 'cub' 'cars')
 if run_stage backbones; then
     $PY -m codebase.analyses.summarize_acc --input_file data/hierarchical_all.csv
     $PY -m codebase.analyses.summarize_acc_metrics --input_file data/hierarchical_all_2.csv
+    # CKA, distance and norm metrics (serials 25/27) for the regressions below
+    $PY -m codebase.analyses.summarize_acc_metrics --input_file data/hierarchical_all_1.csv --output_file summary_features
 
     # wAP vs LR, per architecture and per backbone
     for serial in 23 24; do
@@ -53,9 +55,9 @@ if run_stage backbones; then
 
     # accuracy / ADA ratio vs feature metric regressions, then one grid per accuracy
     metrics=('dist_intra_last_layer_train' 'dist_inter_last_layer_train' 'dist_intra_avg_train' 'dist_inter_avg_train' 'cka_avg_train' 'dist_avg_train' 'dist_norm_avg_train' 'l2_norm_avg_train' 'cka_0_train' 'cka_high_mean_train' 'cka_mid_mean_train' 'cka_low_mean_train' 'dist_intra_0_train' 'dist_inter_0_train')
-    reg=(--type_plot reg --fig_size 6.5 4 --summarized --results_dir results_all/new_plots/ap_w --font_scale 3.2 --font_size_correlations 34 --dpi 160 --input_file results_all/acc_metrics/summary_ap_w_all.csv --title '')
-    # metrics whose columns are not in the summary (intra/inter-class distances) keep their committed figures
-    regplot() { if has_col results_all/acc_metrics/summary_ap_w_all.csv "$1"; then plot "${reg[@]}" --x_var_name "$1" --output_file "$2" "${@:3}"; else echo "skip $2: no column $1"; fi; }
+    reg=(--type_plot reg --fig_size 6.5 4 --summarized --results_dir results_all/new_plots/ap_w --font_scale 3.2 --font_size_correlations 34 --dpi 160 --input_file results_all/acc_metrics/summary_features_ap_w_all.csv --title '')
+    # a metric whose column is not in the summary keeps its committed figure
+    regplot() { if has_col results_all/acc_metrics/summary_features_ap_w_all.csv "$1"; then plot "${reg[@]}" --x_var_name "$1" --output_file "$2" "${@:3}"; else echo "skip $2: no column $1"; fi; }
     for y_var in acc_max ada_ratio; do
         for metric in "${metrics[@]}"; do
             last=0; [[ $metric == *_last_layer_train ]] && last=1
@@ -189,13 +191,14 @@ fi
 # ============================================================
 if run_stage few_examples; then
     $PY -m codebase.analyses.summarize_acc --input_file data/model_low_examples.csv --main_serials 102 103 --results_dir results_all/acc/acc_few_examples
-    for dataset in aircraft cars cub; do
-        for ipc in 1 3 5; do
-            for arch in resnet vit; do
-                [[ $arch == resnet ]] && models=("${all_resnet[@]}") name=Resnet || models=("${all_vit[@]}") name=ViT
-                plot --font_scale 1.2 --fig_size 12 6 --x_rotation 25 --keep_ipc ${ipc} --keep_method "${models[@]}" --keep_dataset ${dataset} ${dataset}_baseline --hue_var_name serial --x_var_name method --y_var_name val_acc_level1 --input_file data/model_low_examples.csv --results_dir results_all/plots/model_low_examples --output_file box_${ipc}_example_${dataset}_${arch} --title "${ipc}-Example ${name} Models on ${dataset}" --type_plot box
-                plot --font_scale 1.2 --fig_size 12 6 --x_rotation 25 --keep_ipc ${ipc} --keep_method "${models[@]}" --keep_dataset ${dataset} ${dataset}_baseline --hue_var_name serial --x_var_name method --y_var_name ada_ratio --input_file results_all/acc/acc_few_examples/summary_val_acc_level1_main.csv --results_dir results_all/plots/model_low_examples --output_file bar_${ipc}_example_${dataset}_${arch} --title "${ipc}-Example ${name} Models on ${dataset}" --type_plot bar --summarized
-            done
+    # dataset / images-per-class pairs that have runs (missing img_per_class means 1)
+    pairs=$($PY -c "import pandas as pd; d = pd.read_csv('data/model_low_examples.csv'); d = d[~d.dataset_name.str.endswith('_baseline')]; print(' '.join(sorted({f'{a}:{int(b)}' for a, b in zip(d.dataset_name, d.img_per_class.fillna(1))})))")
+    for pair in ${pairs}; do
+        dataset=${pair%:*} ipc=${pair#*:}
+        for arch in resnet vit; do
+            [[ $arch == resnet ]] && models=("${all_resnet[@]}") name=Resnet || models=("${all_vit[@]}") name=ViT
+            plot --font_scale 1.2 --fig_size 12 6 --x_rotation 25 --keep_ipc ${ipc} --keep_method "${models[@]}" --keep_dataset ${dataset} ${dataset}_baseline --hue_var_name serial --x_var_name method --y_var_name val_acc_level1 --input_file data/model_low_examples.csv --results_dir results_all/plots/model_low_examples --output_file box_${ipc}_example_${dataset}_${arch} --title "${ipc}-Example ${name} Models on ${dataset}" --type_plot box
+            plot --font_scale 1.2 --fig_size 12 6 --x_rotation 25 --keep_ipc ${ipc} --keep_method "${models[@]}" --keep_dataset ${dataset} ${dataset}_baseline --hue_var_name serial --x_var_name method --y_var_name ada_ratio --input_file results_all/acc/acc_few_examples/summary_val_acc_level1_main.csv --results_dir results_all/plots/model_low_examples --output_file bar_${ipc}_example_${dataset}_${arch} --title "${ipc}-Example ${name} Models on ${dataset}" --type_plot bar --summarized
         done
     done
 fi
