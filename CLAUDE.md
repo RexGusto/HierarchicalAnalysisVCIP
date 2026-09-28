@@ -1,4 +1,4 @@
-# Hierarchical_plot — conventions
+# HierarchicalAnalysis — conventions
 
 Analysis repo for the hierarchical fine-grained recognition papers (CVGIP25, ACMMMW25,
 ICME26, CVPRW26, VCIP26). See `README.md` for the layout and how to run it. Inherits the

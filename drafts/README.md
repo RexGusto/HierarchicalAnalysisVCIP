@@ -2,8 +2,8 @@
 
 | Version | File | Pages | Venue | Title | Source |
 |---|---|---|---|---|---|
-| CVGIP25 | `CVGIP25/CVGIP_Hierarchical.pdf` | 8 | CVGIP 2025, extended abstract | On the Importance of Backbone, Pretraining and Hyperparameter Selection for Hierarchical Fine-Grained Image Recognition | `CVGIP25/CVGIP2025-Extended_Abstract.docx` |
-| CVGIP25, later revision | built from `CVGIP25/latex/main.tex`; no PDF of it in the repo | 8 | – | Revisiting the Backbone, Pretraining and Transferability for Hierarchical Fine-Grained Image Recognition | `CVGIP25/latex/` |
+| CVGIP25 submission | `CVGIP25/CVGIP_Hierarchical.pdf` | 8 | CVGIP 2025, submission | On the Importance of Backbone, Pretraining and Hyperparameter Selection for Hierarchical Fine-Grained Image Recognition | no LaTeX; `CVGIP25/CVGIP2025-Extended_Abstract.docx` is the extended abstract |
+| CVGIP25 camera-ready | `CVGIP25/CVGIP25_camera_ready.pdf` | 8 | CVGIP 2025, camera-ready | Revisiting the Backbone, Pretraining and Transferability for Hierarchical Fine-Grained Image Recognition | `CVGIP25/latex/main.tex` |
 | ACMMMW25 | `ACMMMW25/ACMMMW25_HierarchicalBackbones.pdf` | 5 | ACM MM 2025 workshop AOCV, submission 3 | Rethinking Hierarchical Fine-Grained Image Recognition: Backbone, Pretraining, and Hyperparameters Importance | `ACMMMW25/latex/main.tex` |
 | ICME26 | `ICME26/ICME26_HierarchicalBackbones.pdf` | 6 | ICME 2026 | Pseudo-Hierarchies for Robust Backbone Selection in Fine-Grained Image Recognition | `ICME26/latex/icme2026_template_anonymized.tex` |
 | CVPRW26 | `CVPRW26/CVPR26_Workshop_HierarchicalBackbones.pdf` | 10 | CVPR 2026 efficiency workshop, paper 10 | Pseudo-Hierarchies Improve Optimization Hyperparameter Robustness in Fine-Grained Image Recognition | `CVPRW26/latex/main.tex` |

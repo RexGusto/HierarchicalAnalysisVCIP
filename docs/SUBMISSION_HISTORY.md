@@ -14,7 +14,7 @@ Manuscripts are in `drafts/`, reviews in `reviews/`.
 
 | # | Venue | Title | Outcome | Reviews | Manuscript |
 |---|---|---|---|---|---|
-| 1 | CVGIP 2025, extended abstract | On the Importance of Backbone, Pretraining and Hyperparameter Selection for Hierarchical Fine-Grained Image Recognition | not recorded | none | `drafts/CVGIP25/` |
+| 1 | CVGIP 2025 | Submitted as "On the Importance of Backbone, Pretraining and Hyperparameter Selection for Hierarchical Fine-Grained Image Recognition"; camera-ready as "Revisiting the Backbone, Pretraining and Transferability for Hierarchical Fine-Grained Image Recognition" | accepted | none | `drafts/CVGIP25/` |
 | 2 | ACM MM 2025 workshop AOCV, submission 3 (submitted 12 Jul 2025) | Rethinking Hierarchical Fine-Grained Image Recognition: Backbone, Pretraining, and Hyperparameters Importance | rejected, 2 Aug 2025 | `reviews/review_hierarchical_acmmmw25.md` | `drafts/ACMMMW25/` |
 | 3 | ICME 2026 | Pseudo-Hierarchies for Robust Backbone Selection in Fine-Grained Image Recognition | rejected: 2 borderline, 3 weak reject | `reviews/review_hierarchical_icme26.md` | `drafts/ICME26/` |
 | 4 | CVPR 2026 workshop on efficiency, paper 10 | Pseudo-Hierarchies Improve Optimization Hyperparameter Robustness in Fine-Grained Image Recognition | desk rejected for workshop fit, no reviews | none | `drafts/CVPRW26/` |
@@ -25,10 +25,9 @@ Manuscripts are in `drafts/`, reviews in `reviews/`.
 The paper benchmarks 21 pretrained ResNet-50 and ViT-B backbones on aircraft, CUB and cars,
 each with a real hierarchy. Each backbone is fine-tuned or frozen over 10 learning rates
 (serials 23 and 24). The paper introduces the accuracy-deviation (ADA) ratio: 100 × standard
-deviation / mean accuracy over the learning-rate sweep. The committed LaTeX source is a
-later revision titled "Revisiting the Backbone, Pretraining and Transferability for
-Hierarchical Fine-Grained Image Recognition". It adds feature-transferability metrics
-(serials 25–28).
+deviation / mean accuracy over the learning-rate sweep. The camera-ready, whose LaTeX source
+is in `drafts/CVGIP25/latex/`, adds feature-transferability metrics (serials 25–28). The
+submitted version has only its PDF.
 
 ## 2 ACMMMW25
 

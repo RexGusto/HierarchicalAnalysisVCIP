@@ -1,4 +1,4 @@
-# Hierarchical_plot
+# HierarchicalAnalysis
 
 This repo holds the analysis code for five papers on hierarchical fine-grained image
 recognition (FGIR). In hierarchical FGIR, a classifier predicts a coarse label, such as the
