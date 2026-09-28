@@ -287,6 +287,13 @@ training less sensitive to the learning rate and optimizer."
 - The checkpoint store's README names serial 84 as the baseline and 85 as the
   pseudo-hierarchy. The checkpoint configs and `data/cotton_seeds.csv` say the opposite.
 - The CVPRW26 submission date is not recorded in the repo.
+- pcs5060ti holds two checkouts of the code repo, left untouched because another person may be
+  working in them:
+  - `~/Desktop/projects/Hierarchical`: branch `main`, 2 unpushed commits, the last on
+    2026-09-28, with 272 checkpoints; 81 of them match no file on server-3090.
+  - `~/Desktop/projects/Hierarchical-clean`: created on 2026-09-28, nothing unpushed.
+  Identify the owner before anything moves. The wandb serials 105 and 106, still logging on
+  2026-09-28, may come from this work.
 - `results_all/` folders with no recorded command: `diff_tables/`, `soylocal_acc/`,
   `soylocal_hyperparam/`, `val_acc_level1/`, `extracted_text/` and `lr_scripts/`.
 - `codebase/analyses/summarize_cost.py` defaults to `--host server-3090`. No serial 23 or 24
