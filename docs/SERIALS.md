@@ -3,9 +3,19 @@
 Runs live in the wandb project `nycu_pcs/Hierarchical`, which `codebase/download/` exports to
 `data/*.csv`. A serial groups the runs of one experiment. The "Runs in CSV" column counts
 rows in the committed CSV, not runs on wandb. Where the two differ, the CSV is a snapshot
-from its download date. All runs use 448×448 crops, batch size 8 and seed 0 unless the table
-says otherwise. The 10 learning rates are SGD 0.3–0.003 without weight decay and AdamW
-5e-3–5e-6 with weight decay 0.05.
+from its download date. `results_all/serials/serial_coverage.csv`, written by
+`codebase.verify.reconcile_serials`, counts every serial's wandb runs against these CSVs and
+the checkpoints.
+
+**Defaults.** All runs use 448×448 crops, batch size 8 and seed 0 unless the table says
+otherwise. Training uses a cosine schedule with a 2-epoch warmup, fp16, and gradient-norm
+clipping at 1.0. These are the stored configs of the checkpoints of serials 21, 32, 54 and 86.
+
+**Learning-rate grids.** A sweep has 10 learning rates:
+- Fine-tuned (23, 32, 40, 54, 55 and the other FT sweeps): SGD 0.1, 0.03, 0.01 and 0.003,
+  momentum 0.9, no weight decay; AdamW 1e-3, 5e-4, 1e-4, 5e-5, 1e-5 and 5e-6, weight decay
+  0.05.
+- Frozen (24): SGD 0.3, 0.1, 0.03 and 0.01; AdamW 5e-3, 1e-3, 5e-4, 1e-4, 5e-5 and 1e-5.
 
 The source slide deck is `docs/sources/serials_deck.md` (original `.pptx` beside it). Saved
 checkpoints are described in `docs/CHECKPOINTS.md`.
@@ -88,6 +98,28 @@ Serials 90 and 95 are in the CSV but not in the deck.
 |---|---|---|---|---|---|
 | 102 | Baseline, 1/3/5 images per class | aircraft, cub, cars (`_baseline`) | 21 × 10 × 3 | 1060 | `model_low_examples.csv` |
 | 103 | Real hierarchy, 1/3/5 images per class | aircraft, cub, cars | 21 × 10 × 3 | 1087 | `model_low_examples.csv` |
+
+## Other serials on wandb
+
+No paper uses these serials, and `data/` does not export them. Descriptions come from the run
+configs in `data/wandb_runs.csv`.
+
+| Serial | What | Datasets | Runs on wandb | Checkpoints |
+|---|---|---|---|---|
+| 21 | Real hierarchy, FT, at each backbone's best serial-23 setting, seed 1 | aircraft, cub, cars | 63 | 63 |
+| 29 | Pseudo-hierarchy with the `amla` head, SGD 0.01 and 0.03, 5 backbones | cars | 11 | 5 (deprecated) |
+| 87 | Pseudo-hierarchy at 90%, 50 epochs, DeiT and ViT-B with pseudo-hierarchies from several feature extractors (`soylocal_pseudo_<extractor>_90.yaml`) | soylocal | 130 | 0 |
+| 99 | Pseudo-hierarchy at 90%, 50 epochs, DeiT and ViT-B, 6 AdamW learning rates | soylocal | 12 | 0 |
+| 100 | DeiT baseline and pseudo-hierarchy at 90%, SGD 0.01, 50 epochs | soylocal | none (ed520 only) | 2 |
+| 101 | Baseline, an earlier sweep of the 21 backbones | aircraft, cars, cub (`_baseline`) | 380 | 0 |
+| 104 | Baseline, 3 images per class, one run | aircraft | 1 | 0 |
+| 105, 106 | No hierarchy, SGD 0.01, 50 epochs, seed 42; run names end in `_Metric_n16` and similar. 106 was still logging on 2026-09-28 | aircraft, cars, cub | 62, 46 | 0 |
+| 107, 108 | Frozen ViT-B with hierarchical adapters from code not committed to the code repo, 50 epochs | aircraft | 2, 11 | ed520 only |
+| 110, 200, 210, 300, 310 | HiFA-head experiments (`hifa*` models), frozen (110, 210, 310) or fine-tuned (200, 300) | aircraft, cars, cub | 157, 9, 32, 58, 100 | 19 (deprecated) |
+| 120, 121 | Single test runs: DeiT-3 baseline at AdamW 5e-6, and pseudo-hierarchy at 50% at AdamW 5e-5 | aircraft | 1, 1 | 0 |
+
+Serials 52 and 53 gained 11 and 10 SoyLocal runs on 2026-09-23 (k-means and agglomerative
+grouping at 70%). `data/hierarchical_algo.csv` predates them.
 
 ## Where the deck and the CSVs disagree
 

@@ -10,9 +10,16 @@ FGIR-Backbones Model Zoo session is preparing two Hub repositories: one for the 
 study, one for the pseudo-hierarchy study.
 
 A second set comes from ed520's training folders, for runs that exist nowhere else: serials
-100, 102, 107 and 108. It sits in `/mnt/hdd10tb/edwin/ed520_cleanup/`, split between
-`hierarchical_ed520_only/` and `serial100_ckpts/`, and holds 103 `.pth` files: best, last and
-per-epoch checkpoints. This repo's check has not been run on it.
+100, 102, 107 and 108. It is deprecated and will not be released. It sits in
+`/mnt/hdd10tb/edwin/deprecated/ed520_cleanup_20260928/`, split between
+`hierarchical_ed520_only/results_train/` and `serial100_ckpts/`: 103 `.pth` files, 35
+distinct models. Per run, the best, last and epoch-200 files hold identical weights. The
+FGIR-Backbones Model Zoo session checked them:
+- Serial 102 (31 runs): each file matches one wandb run by final accuracy, and all load
+  strictly.
+- Serial 100 (2 runs): no wandb run; both load.
+- Serials 107 and 108: their weights hold `model.hier_adapters.*`, from code not committed to
+  the code repo, so they fail a strict load.
 
 **What a file holds.** Each file holds `{model, config, epoch, accuracy}`:
 - `config` is the training argparse namespace;

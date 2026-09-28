@@ -33,6 +33,7 @@ The stages are:
 - `pseudo`: ICME26 and CVPRW26;
 - `vcip`;
 - `few_examples`;
+- `robustness`: hierarchical against baseline per optimizer, ranking stability and seed noise;
 - `paper`: builds the VCIP26 PDF;
 - `verify`: re-derives the paper's numbers.
 
@@ -70,18 +71,20 @@ python -m codebase.verify.verify_checkpoints --ckpt_root /mnt/hdd10tb/edwin/resu
 |---|---|
 | `codebase/download/download_save_wandb_data.py` | Exports runs of given serials to `data/<name>.csv` |
 | `codebase/download/download_save_wandb_data_feature_metrics.py` | Exports feature-metric runs (CKA, distances) |
+| `codebase/download/dump_wandb_runs.py` | Indexes every run of the wandb project into `data/wandb_runs.csv` |
 | `codebase/download/merge_acc_metrics_stats.py` | Joins accuracy, feature metrics and pretraining statistics into `data/hierarchical_all_*.csv` |
 | `codebase/download/update_wandb_project_serialx_to_serialy_based_on_substr_in_field.py` | Moves runs between serials on wandb |
 | `codebase/analyses/summarize_acc.py` | Per serial, dataset and backbone: mean, max, standard deviation and ADA ratio over the learning-rate sweep |
 | `codebase/analyses/summarize_acc_metrics.py` | The same, joined with feature metrics |
 | `codebase/analyses/compute_diff.py` | Pseudo-hierarchy minus baseline tables |
+| `codebase/analyses/robustness.py` | Hierarchical against baseline per optimizer (maximum, mean, regret, basin width, collapse rate), ranking stability across datasets, seed noise |
 | `codebase/analyses/summarize_cost.py`, `get_corr_csv.py`, `acc_deviation_average_ratio.py`, `compute_correlations.py` | Cost summaries, correlation tables, ADA-ratio analysis, regression helper |
 | `codebase/plots/plot.py` | Every figure: box, bar, line, regression and heatmap |
 | `codebase/plots/merge_corr_plots.py` | Tiles regression plots into grids |
 | `codebase/build/lr_script.py` | Writes training command files for learning-rate sweeps |
 | `codebase/build/pptx_to_md.py` | Converts a slide deck to markdown with its images |
 | `codebase/build/extract_table_from_pdf.py` | Extracts text tables from a PDF page |
-| `codebase/verify/*` | The three checks above |
+| `codebase/verify/*` | The three checks above, and `reconcile_serials.py`, which counts every wandb serial against `data/`, `docs/SERIALS.md` and the checkpoints |
 | `codebase/logs/*.sh` | The command logs `plotter.sh` was built from |
 
 The ADA ratio is 100 × standard deviation / mean accuracy over a learning-rate sweep. It is

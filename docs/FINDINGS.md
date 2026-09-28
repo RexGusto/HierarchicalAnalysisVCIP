@@ -50,7 +50,7 @@ learning-rate sweep. "ADA ratio" is 100 × standard deviation / mean accuracy ov
 - **SoyAgeing-R1 split.** The best serial-86 SoyAgeing-R1 runs used 4,944 training images.
   At the 984-image low-resource split the maxima are 86.16 (DeiT) and 84.24 (ViT-B).
 - **Figures.** 19 figures, including the three VCIP26 data figures. Their comparison with the
-  paper copies is in stage 6.
+  paper copies is in stage 7.
 
 ## 4 `few_examples`: serials 102 (baseline) and 103 (real hierarchy)
 
@@ -58,13 +58,32 @@ learning-rate sweep. "ADA ratio" is 100 × standard deviation / mean accuracy ov
 - `plotter.sh` derives these pairs from the data and draws a box and an ADA-ratio bar plot per
   pair and architecture: 24 figures in `results_all/plots/model_low_examples/`.
 
-## 5 `paper`: VCIP26 build
+## 5 `robustness`: hierarchical against baseline, per optimizer
+
+Pairs are serial 23 against 32 on aircraft, CUB and cars, and 54 against 55 on SoyLocal: 21
+backbones, 84 pairs. Tables are in `results_all/robustness/`.
+- **Mean regret.** Hierarchical training lowers mean regret to the best run by 4.5 points
+  under SGD and 4.3 under AdamW, in 87% and 81% of pairs.
+- **Mean and maximum.** The mean over the grid rises by 6.4 and 6.1 points; the maximum rises
+  by 1.9 and 1.8.
+- **Same under both optimizers.** A larger gradient from the summed loss cannot explain it:
+  Adam ignores gradient scale, and every run clips the gradient norm to 1.0.
+- **Largest on the smallest data.** The mean rises by 12.0 points on SoyLocal and by 3.0 to
+  5.0 on the other three datasets.
+- **Rankings.** Rankings by maximum disagree across datasets (Kendall τ −0.08 for aircraft
+  against CUB); rankings by mean agree (τ 0.67–0.84).
+- **Noise floor.** The best backbone leads the second by 0.03–0.77 points. The three-seed
+  standard deviation on Cotton is 1.05 points (median over 33 configurations).
+- **Families.** ViT mean regret is 13.7 under AdamW and 7.0 under SGD; ResNets stay near 2
+  under both.
+
+## 6 `paper`: VCIP26 build
 
 - `drafts/VCIP26/build.sh` builds the camera-ready: 5 pages, no errors, no undefined
   references. Its text equals `drafts/VCIP26/main_v2_camera_ready.pdf` apart from one glyph
   extraction.
 
-## 6 `verify`: VCIP26 numbers, claims and figures
+## 7 `verify`: VCIP26 numbers, claims and figures
 
 `codebase.verify.verify_paper_numbers` passes 23 of 32 checks.
 
