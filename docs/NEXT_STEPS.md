@@ -242,6 +242,8 @@ Until then, treat the Q2 gains below as provisional.
 4. **Flatness.** A smoother loss tolerates larger steps (Cohen et al., ICLR 2021, arXiv
    2103.00065).
    - Test on existing checkpoints: the top Hessian eigenvalue of the fine loss.
+   - Kevin Tandian's loss-landscape work on pcs5060ti (see the last section) already
+     visualises hierarchical loss surfaces.
 
 Draft motivation for the introduction: "With a few images per class, a mini-batch rarely holds
 two images of the same fine class, so the fine-grained loss gives high-variance gradients. A
@@ -287,13 +289,15 @@ training less sensitive to the learning rate and optimizer."
 - The checkpoint store's README names serial 84 as the baseline and 85 as the
   pseudo-hierarchy. The checkpoint configs and `data/cotton_seeds.csv` say the opposite.
 - The CVPRW26 submission date is not recorded in the repo.
-- pcs5060ti holds two checkouts of the code repo, left untouched because another person may be
-  working in them:
-  - `~/Desktop/projects/Hierarchical`: branch `main`, 2 unpushed commits, the last on
-    2026-09-28, with 272 checkpoints; 81 of them match no file on server-3090.
-  - `~/Desktop/projects/Hierarchical-clean`: created on 2026-09-28, nothing unpushed.
-  Identify the owner before anything moves. The wandb serials 105 and 106, still logging on
-  2026-09-28, may come from this work.
+- pcs5060ti holds two checkouts of `github.com/Kev-Tan/Hierarchical_Loss_Landscape`, a
+  fork of the code repo, most likely Kevin Tandian's. They are left untouched.
+  - `~/Desktop/projects/Hierarchical` has 2 unpushed commits (2026-09-16 and 2026-09-28).
+    They add loss-landscape analysis, including `tools/visualize_hierarchical_loss.py`, and
+    272 checkpoints, 81 of which match no file on server-3090.
+  - `~/Desktop/projects/Hierarchical-clean` has nothing unpushed.
+  - The commit listing is `/mnt/hdd10tb/edwin/pcs5060ti_cleanup/hierarchical_unpushed_20260929.txt`.
+  - This work is the flatness test for Q2 (mechanism 4 above); coordinate with its owner
+    before building another one.
 - `results_all/` folders with no recorded command: `diff_tables/`, `soylocal_acc/`,
   `soylocal_hyperparam/`, `val_acc_level1/`, `extracted_text/` and `lr_scripts/`.
 - `codebase/analyses/summarize_cost.py` defaults to `--host server-3090`. No serial 23 or 24
