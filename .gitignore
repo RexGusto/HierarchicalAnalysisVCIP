@@ -177,3 +177,11 @@ dmypy.json
 .pyre/
 # worktrees
 /.claude/
+
+# LaTeX build outputs (the submitted PDFs sit one level up, beside latex/)
+drafts/*/latex/*.aux
+drafts/*/latex/*.bbl
+drafts/*/latex/*.blg
+drafts/*/latex/*.out
+drafts/*/latex/*.synctex.gz
+drafts/VCIP26/latex/camera_ready.pdf
