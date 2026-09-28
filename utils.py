@@ -34,8 +34,8 @@ SERIAL_DIC = {
     67: 'Pseudo-Hierarchy (is)',
     68: 'Baseline (augs)',
     69: 'Pseudo-Hierarchy (augs)',
-    55: 'BL', # Soylocal
-    54: 'PH', # Soylocal
+    55: 'Baseline', # Soylocal
+    54: 'Pseudo-Hierarchy', # Soylocal
     83: 'BL', # Other leaves
     86: 'PH', # Other leaves
     90: 'PH + HLS',
@@ -303,7 +303,7 @@ def keep_columns(df, type='acc'):
 
         base_cols = [
             'ap_w', 'dataset_name', 'serial', 'setting', 'method',
-            'lr', 'n_cluster_ratio', 'batch_size', 'seed', 'model_name_extractor', 'seed', 'n_cluster_ratio', 'extractor_layer', 'img_per_class',
+            'lr', 'n_cluster_ratio', 'batch_size', 'seed', 'model_name_extractor', 'extractor_layer', 'img_per_class',
         ]
 
         # keep only columns that actually exist
@@ -357,8 +357,8 @@ def filter_df(df, keep_datasets=None, keep_methods=None, keep_serials=None,
         df = df[df['serial'].isin(keep_serials)]
 
     # print(df['n_cluster_ratio'].unique())
-    # if 'n_cluster_ratio' in df.columns:
-    #     df.loc[:, 'n_cluster_ratio'] = df['n_cluster_ratio'].fillna(0).astype(int)
+    if 'n_cluster_ratio' in df.columns:
+        df['n_cluster_ratio'] = df['n_cluster_ratio'].fillna(0).astype(int)
     if 'img_per_class' in df.columns:
         df.loc[:, 'img_per_class'] = df['img_per_class'].fillna(1).astype(int)
 

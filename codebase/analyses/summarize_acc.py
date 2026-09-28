@@ -153,8 +153,9 @@ def pivot_table(df, var='acc_mean', serial=23, fp=None, rename=True):
 def summarize_results(args):
     # load dataset
     df = pd.read_csv(args.input_file)
-    df["model_name_extractor"] = df["model_name_extractor"].fillna(df["model_name"])
-    df["extractor_layer"] = df["extractor_layer"].fillna(-1)
+    if 'model_name_extractor' in df.columns:
+        df["model_name_extractor"] = df["model_name_extractor"].fillna(df["model_name"])
+        df["extractor_layer"] = df["extractor_layer"].fillna(-1)
 
     # preprocess to include method and setting columns,
     # drop columns
