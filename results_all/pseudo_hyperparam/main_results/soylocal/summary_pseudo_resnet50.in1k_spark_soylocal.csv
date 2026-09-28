@@ -1,2 +1,2 @@
-serial,dataset_name,method,model_name_extractor,extractor_layer,n_cluster_ratio,acc_max,lr_acc_max,acc_mean,abs_dif_acc_mean,rel_dif_acc_mean,acc_std,abs_dif_acc_std,rel_dif_acc_std,ada_ratio,abs_dif_ada,rel_dif_ada,cva,abs_dif_cva,rel_dif_cva
-32,soylocal,hiresnet50.in1k_spark,,,,33.1667,1e-05,13.65,0.0,0.0,9.6566,0.0,0.0,70.7442200417118,0.0,0.0,-28.26233712992987,0.0,0.0
+serial,dataset_name,method,model_name_extractor,extractor_layer,n_cluster_ratio,acc_max,abs_dif_acc_max,rel_dif_acc_max,lr_acc_max,acc_mean,abs_dif_acc_mean,rel_dif_acc_mean,acc_std,abs_dif_acc_std,rel_dif_acc_std,ada_ratio,abs_dif_ada,rel_dif_ada,cva,abs_dif_cva,rel_dif_cva
+32,soylocal,hiresnet50.in1k_spark,,,,33.1667,0.0,0.0,1e-05,13.65,0.0,0.0,9.6566,0.0,0.0,70.7442200417118,0.0,0.0,-28.26233712992987,0.0,0.0

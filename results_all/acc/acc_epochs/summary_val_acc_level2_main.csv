@@ -1,5 +1,5 @@
-serial,setting,dataset_name,method,n_cluster_ratio,extractor_layer,model_name_extractor,acc_mean,acc_std,acc_max,lr_acc_max,acc_min,ada_ratio,cva,acc_mean_std_latex,acc_mean_std
-64,,all,hideit3_base_patch16_224.fb_in1k,,,,,,,,,,,nan\pm{nan},nan+-nan
-64,,aircraft_baseline,hideit3_base_patch16_224.fb_in1k,,,,,,,,,,,nan\pm{nan},nan+-nan
-65,,all,hideit3_base_patch16_224.fb_in1k,50.0,-1.0,hideit3_base_patch16_224.fb_in1k,,,,,,,,nan\pm{nan},nan+-nan
-65,,aircraft_pl,hideit3_base_patch16_224.fb_in1k,50.0,-1.0,hideit3_base_patch16_224.fb_in1k,,,,,,,,nan\pm{nan},nan+-nan
+serial,setting,dataset_name,method,seed,n_cluster_ratio,extractor_layer,model_name_extractor,acc_mean,acc_std,acc_max,lr_acc_max,acc_min,ada_ratio,cva,acc_mean_std_latex,acc_mean_std
+64,,all,hideit3_base_patch16_224.fb_in1k,0,,,,,,,,,,,nan\pm{nan},nan+-nan
+64,,aircraft_baseline,hideit3_base_patch16_224.fb_in1k,0,,,,,,,,,,,nan\pm{nan},nan+-nan
+65,,all,hideit3_base_patch16_224.fb_in1k,0,50.0,-1.0,hideit3_base_patch16_224.fb_in1k,,,,,,,,nan\pm{nan},nan+-nan
+65,,aircraft_pl,hideit3_base_patch16_224.fb_in1k,0,50.0,-1.0,hideit3_base_patch16_224.fb_in1k,,,,,,,,nan\pm{nan},nan+-nan

@@ -1,4 +1,4 @@
-serial,dataset_name,method,model_name_extractor,extractor_layer,n_cluster_ratio,acc_max,lr_acc_max,acc_mean,abs_dif_acc_mean,rel_dif_acc_mean,acc_std,abs_dif_acc_std,rel_dif_acc_std,ada_ratio,abs_dif_ada,rel_dif_ada,cva,abs_dif_cva,rel_dif_cva
-40,aircraft_pl,hiresnet50.in21k_miil,hiresnet50.in21k_miil,-1,25,92.1392,0.0005,90.8161,0.0,0.0,1.2859,0.0,0.0,1.4159642522032443,0.0,0.0,-3.843610041634869,0.0,0.0
-40,aircraft_pl,hiresnet50.in21k_miil,hiresnet50.in21k_miil,-1,50,92.5293,0.0001,91.1521,0.0,0.0,1.261,0.0,0.0,1.3833706811301436,0.0,0.0,-3.769080988103192,0.0,0.0
-40,aircraft_pl,hiresnet50.in21k_miil,hiresnet50.in21k_miil,-1,70,92.6793,0.0001,91.1011,0.0,0.0,1.2725,0.0,0.0,1.3967539984709434,0.0,0.0,-3.803407230718329,0.0,0.0
+serial,dataset_name,method,model_name_extractor,extractor_layer,n_cluster_ratio,acc_max,abs_dif_acc_max,rel_dif_acc_max,lr_acc_max,acc_mean,abs_dif_acc_mean,rel_dif_acc_mean,acc_std,abs_dif_acc_std,rel_dif_acc_std,ada_ratio,abs_dif_ada,rel_dif_ada,cva,abs_dif_cva,rel_dif_cva
+40,aircraft_pl,hiresnet50.in21k_miil,hiresnet50.in21k_miil,-1,25.0,92.1392,0.0,0.0,0.0005,90.8161,0.0,0.0,1.2859,0.0,0.0,1.4159642522032443,0.0,0.0,-3.843610041634869,0.0,0.0
+40,aircraft_pl,hiresnet50.in21k_miil,hiresnet50.in21k_miil,-1,50.0,92.5293,0.0,0.0,0.0001,91.1521,0.0,0.0,1.261,0.0,0.0,1.3833706811301436,0.0,0.0,-3.769080988103192,0.0,0.0
+40,aircraft_pl,hiresnet50.in21k_miil,hiresnet50.in21k_miil,-1,70.0,92.6793,0.0,0.0,0.0001,91.1011,0.0,0.0,1.2725,0.0,0.0,1.3967539984709434,0.0,0.0,-3.803407230718329,0.0,0.0

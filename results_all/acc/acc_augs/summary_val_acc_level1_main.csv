@@ -1,5 +1,5 @@
-serial,setting,dataset_name,method,n_cluster_ratio,extractor_layer,model_name_extractor,acc_mean,acc_std,acc_max,lr_acc_max,acc_min,ada_ratio,cva,acc_mean_std_latex,acc_mean_std
-68,,all,hideit3_base_patch16_224.fb_in1k,,,,92.3092,0.1426,92.4692,0.01,92.0192,0.15452142741697147,-0.42636726615739134,92.3092\pm{0.1426},92.3092+-0.1426
-68,,aircraft_baseline,hideit3_base_patch16_224.fb_in1k,,,,92.3092,0.1426,92.4692,0.01,92.0192,0.15452142741697147,-0.42636726615739134,92.3092\pm{0.1426},92.3092+-0.1426
-69,,all,hideit3_base_patch16_224.fb_in1k,50.0,-1.0,hideit3_base_patch16_224.fb_in1k,92.3032,0.3169,92.9193,0.01,91.7492,0.34331850690004756,-0.9472490624324006,92.3032\pm{0.3169},92.3032+-0.3169
-69,,aircraft_pl,hideit3_base_patch16_224.fb_in1k,50.0,-1.0,hideit3_base_patch16_224.fb_in1k,92.3032,0.3169,92.9193,0.01,91.7492,0.34331850690004756,-0.9472490624324006,92.3032\pm{0.3169},92.3032+-0.3169
+serial,setting,dataset_name,method,seed,n_cluster_ratio,extractor_layer,model_name_extractor,acc_mean,acc_std,acc_max,lr_acc_max,acc_min,ada_ratio,cva,acc_mean_std_latex,acc_mean_std
+68,,all,hideit3_base_patch16_224.fb_in1k,0,,,,92.3092,0.1426,92.4692,0.01,92.0192,0.15452142741697147,-0.42636726615739134,92.3092\pm{0.1426},92.3092+-0.1426
+68,,aircraft_baseline,hideit3_base_patch16_224.fb_in1k,0,,,,92.3092,0.1426,92.4692,0.01,92.0192,0.15452142741697147,-0.42636726615739134,92.3092\pm{0.1426},92.3092+-0.1426
+69,,all,hideit3_base_patch16_224.fb_in1k,0,50.0,-1.0,hideit3_base_patch16_224.fb_in1k,92.3032,0.3169,92.9193,0.01,91.7492,0.34331850690004756,-0.9472490624324006,92.3032\pm{0.3169},92.3032+-0.3169
+69,,aircraft_pl,hideit3_base_patch16_224.fb_in1k,0,50.0,-1.0,hideit3_base_patch16_224.fb_in1k,92.3032,0.3169,92.9193,0.01,91.7492,0.34331850690004756,-0.9472490624324006,92.3032\pm{0.3169},92.3032+-0.3169

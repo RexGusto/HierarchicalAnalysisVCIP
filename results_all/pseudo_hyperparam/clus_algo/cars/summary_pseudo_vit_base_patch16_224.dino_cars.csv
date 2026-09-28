@@ -1,4 +1,4 @@
-serial,dataset_name,method,model_name_extractor,extractor_layer,n_cluster_ratio,acc_max,lr_acc_max,acc_mean,abs_dif_acc_mean,rel_dif_acc_mean,acc_std,abs_dif_acc_std,rel_dif_acc_std,ada_ratio,abs_dif_ada,rel_dif_ada,cva,abs_dif_cva,rel_dif_cva
-40,cars_pl,hivit_base_patch16_224.dino,hivit_base_patch16_224.dino,-1,25,91.22,0.003,60.8631,0.0,0.0,38.7057,0.0,0.0,63.5946957805088,0.0,0.0,-115.4811205084916,0.0,0.0
-40,cars_pl,hivit_base_patch16_224.dino,hivit_base_patch16_224.dino,-1,50,89.1929,0.003,64.6468,0.0,0.0,33.0617,0.0,0.0,51.14206880017018,0.0,0.0,-98.67373128959932,0.0,0.0
-40,cars_pl,hivit_base_patch16_224.dino,hivit_base_patch16_224.dino,-1,70,88.4467,0.003,56.4731,0.0,0.0,37.3276,0.0,0.0,66.09811401965538,0.0,0.0,-111.32193687969612,0.0,0.0
+serial,dataset_name,method,model_name_extractor,extractor_layer,n_cluster_ratio,acc_max,abs_dif_acc_max,rel_dif_acc_max,lr_acc_max,acc_mean,abs_dif_acc_mean,rel_dif_acc_mean,acc_std,abs_dif_acc_std,rel_dif_acc_std,ada_ratio,abs_dif_ada,rel_dif_ada,cva,abs_dif_cva,rel_dif_cva
+40,cars_pl,hivit_base_patch16_224.dino,hivit_base_patch16_224.dino,-1,25.0,91.22,0.0,0.0,0.003,60.8631,0.0,0.0,38.7057,0.0,0.0,63.5946957805088,0.0,0.0,-115.4811205084916,0.0,0.0
+40,cars_pl,hivit_base_patch16_224.dino,hivit_base_patch16_224.dino,-1,50.0,89.1929,0.0,0.0,0.003,64.6468,0.0,0.0,33.0617,0.0,0.0,51.14206880017018,0.0,0.0,-98.67373128959932,0.0,0.0
+40,cars_pl,hivit_base_patch16_224.dino,hivit_base_patch16_224.dino,-1,70.0,88.4467,0.0,0.0,0.003,56.4731,0.0,0.0,37.3276,0.0,0.0,66.09811401965538,0.0,0.0,-111.32193687969612,0.0,0.0

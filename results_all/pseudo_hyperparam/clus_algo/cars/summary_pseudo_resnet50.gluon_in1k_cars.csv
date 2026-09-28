@@ -1,4 +1,4 @@
-serial,dataset_name,method,model_name_extractor,extractor_layer,n_cluster_ratio,acc_max,lr_acc_max,acc_mean,abs_dif_acc_mean,rel_dif_acc_mean,acc_std,abs_dif_acc_std,rel_dif_acc_std,ada_ratio,abs_dif_ada,rel_dif_ada,cva,abs_dif_cva,rel_dif_cva
-40,cars_pl,hiresnet50.gluon_in1k,hiresnet50.gluon_in1k,-1,25,94.1176,0.03,91.8617,0.0,0.0,2.4976,0.0,0.0,2.718923777343297,0.0,0.0,-7.46575957294187,0.0,0.0
-40,cars_pl,hiresnet50.gluon_in1k,hiresnet50.gluon_in1k,-1,50,93.8316,0.03,92.0495,0.0,0.0,2.3899,0.0,0.0,2.596280395305239,0.0,0.0,-7.1436257845923175,0.0,0.0
-40,cars_pl,hiresnet50.gluon_in1k,hiresnet50.gluon_in1k,-1,70,94.2171,0.03,92.1764,0.0,0.0,2.0826,0.0,0.0,2.259354834003815,0.0,0.0,-6.225179588066239,0.0,0.0
+serial,dataset_name,method,model_name_extractor,extractor_layer,n_cluster_ratio,acc_max,abs_dif_acc_max,rel_dif_acc_max,lr_acc_max,acc_mean,abs_dif_acc_mean,rel_dif_acc_mean,acc_std,abs_dif_acc_std,rel_dif_acc_std,ada_ratio,abs_dif_ada,rel_dif_ada,cva,abs_dif_cva,rel_dif_cva
+40,cars_pl,hiresnet50.gluon_in1k,hiresnet50.gluon_in1k,-1,25.0,94.1176,0.0,0.0,0.03,91.8617,0.0,0.0,2.4976,0.0,0.0,2.718923777343297,0.0,0.0,-7.46575957294187,0.0,0.0
+40,cars_pl,hiresnet50.gluon_in1k,hiresnet50.gluon_in1k,-1,50.0,93.8316,0.0,0.0,0.03,92.0495,0.0,0.0,2.3899,0.0,0.0,2.596280395305239,0.0,0.0,-7.1436257845923175,0.0,0.0
+40,cars_pl,hiresnet50.gluon_in1k,hiresnet50.gluon_in1k,-1,70.0,94.2171,0.0,0.0,0.03,92.1764,0.0,0.0,2.0826,0.0,0.0,2.259354834003815,0.0,0.0,-6.225179588066239,0.0,0.0
