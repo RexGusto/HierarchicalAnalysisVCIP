@@ -1,0 +1,15 @@
+# Analysis, plots and the paper checker (the asr env)
+numpy==2.4.6
+pandas==2.3.3
+scipy==1.17.1
+matplotlib==3.10.8
+seaborn==0.13.2
+statsmodels==0.14.5
+scikit-learn==1.9.0
+pillow==12.3.0
+pypdf==6.16.2
+wandb==0.25.1
+
+# Checkpoint check only (the fgir_timm912 env, with the code repo projects/Hierarchical)
+# torch==2.5.1
+# timm==0.9.12
