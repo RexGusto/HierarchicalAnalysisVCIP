@@ -106,8 +106,16 @@ These are proposals; the source is unchanged.
     - After: `--keep_serials 55 54 --input_file data/hierarchical_soylocal.csv`, then copy to
       `drafts/VCIP26/latex/figures/`
 
-Counts: 11 items. 8 changes are ready to apply (1–7 and 9–10). 3 need a decision: item 8,
-item 11, and Kevin Tandian's department in item 1.
+12. **The headline gain, l.177 and l.215.** Decision: keep the claim, or qualify it. Reason:
+    the 12.5-point DeiT gain compares serial 55 and serial 54, which ran on different code
+    commits and hosts. On one commit, a baseline rerun (serial 56) reaches 63.33 at the same
+    setting, and HPH reruns (serial 57) reach 61.67–65.50. The next section has the table.
+    - Current: "DeiT obtains the largest gain of **12.5%** to max accuracy over the
+      non-hierarchical baseline."
+    - No replacement text is proposed until the baseline is rerun on the HPH run's commit.
+
+Counts: 12 items. 8 changes are ready to apply (1–7 and 9–10). 4 need a decision: items 8,
+11 and 12, and Kevin Tandian's department in item 1.
 
 ## 4-page resubmission on backbone training strategies (decision)
 
@@ -120,6 +128,35 @@ The goal is a short paper with two claims:
 The measurements below come from the committed CSVs. Serial 23 (hierarchical) is paired with
 32 (baseline) on aircraft, CUB and cars, and 54 with 55 on SoyLocal: 21 backbones, 84 pairs.
 `python -m codebase.analyses.robustness` computes them into `results_all/robustness/`.
+
+### First: the baseline and hierarchical runs used different code
+
+Serials 54 and 55, the SoyLocal HPH and baseline sweeps behind the VCIP26 headline, ran on
+different code commits and hosts. Consider DeiT at AdamW 5e-6, 200 epochs, seed 0, with the
+same config file, as recorded in wandb `run.metadata`:
+
+| Serial | Run | Accuracy | Commit | Host |
+|---|---|---|---|---|
+| 55, baseline | `fd32sfup` | 48.83 | `f0c41d8` | pc427-08 |
+| 54, HPH 90% | `aafc7jba` | 64.33 | `234edfc` | camel |
+| 56, baseline rerun | `jtetov5g` | 63.33 | `8ad68bc` | gpu |
+| 57, HPH 90% rerun | `nmnz973q` | 65.50 | `8ad68bc` | gpu |
+| 57, HPH 90% reruns | `3xcx9k9w`, `0kcmivs8` | 61.67, 61.67 | `d6ed1b7` | pcs5060ti |
+
+- **On one commit the gap nearly closes.** Baseline and HPH differ by 2.2 points (63.33
+  against 65.50), not the 12.5 the paper prints.
+- **The 14.5-point baseline jump is unexplained.** It could be a code change between
+  `f0c41d8` and `234edfc`, a host difference, or run-to-run variance.
+- **The 84-pair comparison above may share this problem.** It pairs serial 23 with serial 32,
+  which ran months apart and mixes two run generations.
+
+Before any resubmission:
+1. Diff `f0c41d8..234edfc` in `projects/Hierarchical`, looking for changes to data loading,
+   loss or evaluation.
+2. Rerun the SoyLocal baseline and HPH sweeps, and a subset of 23 against 32, on one commit
+   and one host, with 3 seeds.
+
+Until then, treat the Q2 gains below as provisional.
 
 ### What the earlier analysis got wrong or missed
 
