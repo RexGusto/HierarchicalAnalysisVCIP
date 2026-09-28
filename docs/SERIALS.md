@@ -114,7 +114,7 @@ configs in `data/wandb_runs.csv`.
 | 87 | Pseudo-hierarchy at 90%, 50 epochs, DeiT and ViT-B with pseudo-hierarchies from several feature extractors (`soylocal_pseudo_<extractor>_90.yaml`) | soylocal | 130 | 0 |
 | 99 | Pseudo-hierarchy at 90%, 50 epochs, DeiT and ViT-B, 6 AdamW learning rates | soylocal | 12 | 0 |
 | 100 | DeiT baseline and pseudo-hierarchy at 90%, SGD 0.01, 50 epochs | soylocal | none (ed520 only) | 2 |
-| 101 | Baseline, an earlier sweep of the 21 backbones | aircraft, cars, cub (`_baseline`) | 380 | 0 |
+| 101 | Baseline sweep of 13 backbones (Nov–Dec 2025), 200 epochs. Same configurations and counts as the committed serial-32 CSV rows of those backbones; wandb serial 32 now holds a July 2026 rerun | aircraft, cars, cub (`_baseline`) | 380 | 0 |
 | 104 | Baseline, 3 images per class, one run | aircraft | 1 | 0 |
 | 105, 106 | No hierarchy, SGD 0.01, 50 epochs, seed 42; run names end in `_Metric_n16` and similar. 106 was still logging on 2026-09-28 | aircraft, cars, cub | 62, 46 | 0 |
 | 107, 108 | Frozen ViT-B with hierarchical adapters from code not committed to the code repo, 50 epochs | aircraft | 2, 11 | ed520 only |
