@@ -360,5 +360,6 @@ Decisions for the author:
 - `codebase/analyses/summarize_cost.py` defaults to `--host server-3090`. No serial 23 or 24
   run was logged from that host, so it summarises nothing unless `--host` is given. It is not
   in `plotter.sh`.
-- The checkpoint release (repository names, which groups) waits on the FGIR-Backbones Model
-  Zoo session's proposal, `/mnt/hdd10tb/edwin/hier_zoo/PROPOSAL.md`.
+- The Hub model cards cite CVGIP 2025 and VCIP 2026 with `eprint = {TBA}`; add the arXiv IDs
+  or DOIs when they exist (card builder: `fgir_zoo/tools/build_hierarchical_card.py` in the
+  `fgir_zoo` repo).
