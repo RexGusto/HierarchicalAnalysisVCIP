@@ -284,6 +284,63 @@ training less sensitive to the learning rate and optimizer."
    patch embedding frozen. Separately, compare frozen against training BatchNorm on 3–4
    ResNets. If ViT fragility disappears, the paper gains a prescription.
 
+## Proposed clean-up of the wandb project (decision)
+
+`results_all/serials/serial_triage.csv` gives each of the 86 wandb serials in
+`nycu_pcs/Hierarchical` one verdict:
+- **KEEP-VCIP:** the serial backs the VCIP26 paper or a fix in the list above.
+- **KEEP-EXT:** the extension needs or may need it.
+- **KEEP-HISTORY:** an earlier submission used it.
+- **MOVE-TO-OTHERS:** a dead end, proposed for `nycu_pcs/Others` to await deletion. Nothing has moved. Moving runs on wandb does not change
+the committed `data/*.csv`, so `plotter.sh` still rebuilds everything.
+
+| Verdict | Serials | Runs |
+|---|---|---|
+| KEEP-VCIP | 13 | 2,618 |
+| KEEP-EXT | 37 | 7,082 |
+| KEEP-HISTORY | 3 | 647 |
+| Ask the owner | 2 | 108 |
+| MOVE-TO-OTHERS | 31 | 1,400 |
+
+Proposed moves, 1,400 runs:
+- **HiFA heads** (110, 200, 210, 300, 310): 356 runs; their checkpoints are already
+  deprecated.
+- **Adapters on code never committed** (107, 108): 13 runs.
+- **Same-class mix** (91, 93), **an all-failed arm** (95) and **unreferenced SoyLocal runs**
+  (99): 133 runs.
+- **Pilots and test runs** (29, 104, 120, 121): 14 runs.
+- **Feature analyses no paper used** (30, 31, 33–38, 208, 209): 432 runs.
+- **Studies replaced by other serials** (41, replaced by 51 for the extractor study; 44 and
+  46–49, replaced by 64–69 and 74–79): 452 runs.
+
+Kept, in brief:
+- **VCIP26:** 54–57, 81–86, 52/53 and 87. 87 and the newer 52/53 SoyLocal runs answer reviewer
+  points on feature quality and on Hungarian matching against other grouping.
+- **Extension:**
+  - the backbone sweeps (21, 23, 24, 32, 40, 101);
+  - the best-learning-rate reruns (58–61);
+  - the few-example serials (102, 103);
+  - the feature metrics (25–28);
+  - the small ablation pairs (42/43, 62–79);
+  - the label-smoothing arms (90, 92, 94).
+- **History:** 39 (ICME26), 51 and 70 (CVPRW26).
+- **Serial 101** is not a stale duplicate of 32. Its 380 runs have the same configurations and
+  counts (126, 124 and 130) as the committed serial-32 CSV rows of 13 backbones, and 112 of
+  372 accuracies are identical. Wandb serial 32 now holds a July 2026 rerun of those backbones,
+  whose results differ.
+
+Decisions for the author:
+1. Serials 105 and 106 (seed-42 "Metric" runs, 106 still logging on 2026-09-28): ask the owner,
+   probably Kevin Tandian.
+2. Metric serials 30, 31 and 35–38 (378 runs): move, unless the predictor re-test wants metrics
+   on the second target.
+3. Serial 41 (401 runs): move, unless the extension revisits the choice of feature extractor.
+4. Label-smoothing arms 90, 92 and 94: keep until the planned CE + label-smoothing runs exist,
+   then move them with the others (261 runs in all).
+5. The 271 failed, crashed or killed runs inside kept serials, listed in
+   `results_all/serials/nonfinished_in_keep.csv`: none has a logged accuracy, so they can move
+   one by one. Serials 23, 40 and 51 would then show fewer runs than their grids.
+
 ## Data and checkpoints
 
 - The checkpoint store's README names serial 84 as the baseline and 85 as the
