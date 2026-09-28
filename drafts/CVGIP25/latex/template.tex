@@ -1,0 +1,132 @@
+\documentclass[10pt,twocolumn]{article}
+
+
+\input{setup/package}
+\input{setup/macros}
+\input{setup/symbols}
+\input{setup/graphicspath}
+
+\date{}
+
+
+\begin{document}
+\pagestyle{empty} % 拿掉頁碼
+
+\title{\textbf{YOUR PAPER TITLE IN ALL CAPS}}
+
+
+% for chinese text
+% \AtBeginDocument{\begin{CJK}{UTF8}{bkai}} % 使用標楷體    
+% \AtEndDocument{\clearpage\end{CJK}}
+\author{
+    Author 1 (Chinese Name 1)$^{1}$,
+    Author 2 (Chinese Name 2)$^{1,*}$,
+    Author 3 (Chinese Name 3)$^{2}$\\
+    \\
+    $^{1}$Department of Computer Science and Information Engineering,\\
+    National Taipei University, New Taipei City, Taiwan\\
+    $^{2}$Department of Computer Science and Information Engineering,\\
+    National Taipei University, New Taipei City, Taiwan\\
+    E-mail: me@ntpu.edu.tw
+}
+
+
+
+\maketitle
+
+\thispagestyle{empty}  % 保險再加一行拿掉頁碼1
+
+
+\begin{center}
+\textbf{ABSTRACT}
+\end{center}
+
+\noindent
+The abstract should appear at the top of the left-hand column of text, about 12 mm (0.5 inch) below the title area and no more than 80 mm (3.125 inches) in length. Leave a 12 mm (0.5 inch) space between the end of the abstract and the beginning of the main text. The abstract should contain about 100 to 150 words, and should be identical to the abstract text submitted electronically. All manuscripts must be in English.
+
+\noindent
+\begin{flushleft}
+\justifying{\textbf{\textit{Keywords:}} Word template, IPPR, CVGIP 2025.}
+\end{flushleft}
+
+
+
+% \vspace{1em}
+% \begin{center}
+% \textbf{1. INTRODUCTION}
+% \end{center}
+\section{INTRODUCTION}
+These guidelines include complete descriptions of the fonts, spacing, and related information for producing your proceedings manuscripts. Please follow them.
+
+
+
+\section{FORMATTING YOUR PAPER}
+All printed material, including text, illustrations, and charts, must be kept within a print area of 175 mm (6.9 inches) wide by 226 mm (8.9 inches) high. Do not write or print anything outside the print area. The top margin must be 25 mm (1.0 inches), except for the title page, and the left margin must be 19 mm (0.75 inch). All text must be in a two-column format. Columns are to be 83 mm (3.27 inches) wide, with an 8 mm (0.37 inch) space between them. Text must be fully justified.
+
+
+\section{PAPER TITLE}
+The paper title (on the first page) should begin 35 mm (1.375 inch) from the top edge of the page, centered, completely capitalized, and in Times 14-point, boldface type. The authors’ name(s) and affiliation(s) appear below the title in capital and lower case letters. Papers with multiple authors / affiliations may require more lines.
+
+
+\section{TYPE-STYLE AND FONTS}
+To achieve the best rendering, we strongly encourage you to use Times-Roman font. In addition, this will give the proceedings a more uniform look. Use a font that is no smaller than nine point type throughout the paper, including figure captions.
+
+If you use the smallest point size, there should be no more than 3.2 lines/cm (8 lines/inch) vertically. This is a minimum spacing; 2.75 lines/cm (7 lines/inch) will make the paper much more readable. Larger type sizes require correspondingly larger vertical spacing. Please do not double-space your paper.
+
+The first paragraph in each section should not be indented, but all following paragraphs within the section should be indented as these paragraphs demonstrate.
+
+
+
+
+
+
+Test Reference \cite{ref1,ref2}
+
+
+
+\section{MAJOR HEADINGS}
+Major headings, for example, “1. Introduction”, should appear in all capital letters, bold face if possible, centered in the column, with one blank line before, and one blank line after. Use a period (“.”) after the heading number.
+
+\subsection{Sub-subheadings}
+Subheadings should appear in lower case (initial word capitalized) in boldface. They should start at the left margin on a separate line.
+
+\subsubsection{Sub-subheadings}
+Sub-subheadings, as in this paragraph, are discouraged. However, if you must use them, they should appear in lower case (initial word capitalized) and start at the left margin on a separate line, with paragraph text beginning on the following line. They should be in italics.
+
+\input{figures/fig_example}
+
+\section{PAGE NUMBERING}
+Please do not paginate your paper. Page numbers, session numbers, and conference identification could be inserted when the paper is included in the proceedings.
+
+\section{ILLUSTRATIONS, GRAPHS, AND PHOTOGRAPHS}
+Illustrations must appear within the designated margins. They may span the two columns. If possible, position illustrations at the top of columns, rather than in the middle or at the bottom. Caption and number every illustration. All illustrations must be clear to be printable.  \figref{example} shows you an example of how to do this.
+
+\section{FOOTNOTES}
+Use footnotes sparingly (or not at all!) and place them at the bottom of the column on the page on which they are referenced. Use Times 9-point type, single-spaced. To help your readers, avoid using footnotes altogether and include necessary peripheral observations in the text (within parentheses, if you prefer, as in this sentence).
+
+\section{REFERENCES}
+List and number all bibliographical references at the end of the paper. The references can be numbered in alphabetic order or in order of appearance in the document. When referring to them in the text, type the corresponding reference number in square brackets as shown at the end of this sentence [1,2].
+
+\section{SUBMIT YOUR PAPER}
+Submit your properly formatted PDF file to web-site 
+https://cvgip2025.ntpu.edu.tw/registration-system.html
+If the last page of your paper is only partially filled, arrange the columns so that they are evenly balanced if possible.
+
+\input{tables/tab_example}
+
+
+
+If your paper is supported by Ministry of Science and Technology, PLEASE add the grant number.
+
+
+
+
+\begin{center}
+\textbf{REFERENCES}
+\end{center}
+\vspace{-3.25em}  % ← 加這一行來「拉近」 References 與第一筆
+\bibliographystyle{ieeetr}
+\bibliography{Ref}
+
+
+\end{document}

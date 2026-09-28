@@ -1,0 +1,75 @@
+\usepackage[
+  top=25mm,
+  bottom=19mm,
+  left=19mm,
+  right=19mm,
+  textwidth=175mm,
+  textheight=226mm,
+  columnsep=8mm
+]{geometry}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+\usepackage{ragged2e}
+\usepackage{CJKutf8}
+% Figures
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage[justification=raggedright]{caption}	% makes captions ragged right - thanks to Bryce Lobdell
+\usepackage{lscape}                                         % Useful for wide tables or figures.
+\usepackage{ragged2e}
+
+% Algorithm
+\usepackage[lined,ruled,linesnumbered]{algorithm2e}
+
+% Table and list
+\usepackage{booktabs}                   % Publication quality tables
+\usepackage{multirow}
+
+\usepackage{paralist}
+\usepackage{enumitem}
+
+% Math
+\usepackage{bm}                          % Make bold, italic math symbols
+\usepackage{epsfig}                      % for figures
+\usepackage{graphicx}                  % another package that works for figures
+\usepackage{times}
+\usepackage{mathptmx}
+\usepackage{mathtools}
+\usepackage{amssymb,amsmath}   % Short math guide for LaTeX ftp://ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf
+
+% Fonts
+\usepackage{units}
+\usepackage{color}
+
+% Comments
+\usepackage{comment}
+
+% Hyperlinks
+\usepackage{url}  % Hyphenation of URLs.
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
+
+% \usepackage{slashbox}
+\usepackage{cite}
+\usepackage{xspace}
+\usepackage[table]{xcolor}
+\usepackage{setspace}
+\usepackage[percent]{overpic}
+\usepackage{nccbbb}
+% \usepackage{times,color}
+% \usepackage{parskip}
+% %\usepackage{epsfig}
+% %\usepackage{psfig}
+% %\usepackage[pdftex]{graphicx} % new acmsiggraph.cls
+\usepackage{ifthen}
+% %\usepackage[draft]{hyperref} % new acmsiggraph.cls
+
+
+\renewcommand{\refname}{}  % 禁用自動 "References"
+\renewcommand{\figurename}{Fig.}  % 將 "Figure" 改為 "Fig."
+% 緊縮條目間距
+\patchcmd{\thebibliography}{\settowidth}
+  {\setlength{\itemsep}{0pt plus 0.3ex}%
+   \setlength{\parskip}{0pt}%
+   \settowidth}{}{}

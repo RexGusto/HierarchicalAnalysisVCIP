@@ -1,0 +1,35 @@
+% Define math symbols that appear in the texts
+
+
+\def\grayimg{X}                 % input grayscale image
+\def\predimg{Y}                 % predicted color image
+\def\predGT{\predimg^{GT}}      % ground truth color image
+\def\instngray{\grayimg_i}      % instance image
+\def\instnpred{\predimg_i}      % colorized instance image
+\def\instnGT{\predimg^{GT}_i}   % ground truth instance image
+\def\instnbox{B}                % set of instance object bounding boxes
+\def\instnboxi{\instnbox_i}     % single instance object bounding box
+\def\fullmodel{M_F}                 % full-image colorization model
+\def\instnmodel{M_I}                % instance colorization model
+\def\fusemodule{F_j}                % j-th fusion module
+\def\fullfetr{f^{\grayimg}_j}       % full-image feature at j-th layer
+\def\instnfetr{f^{\instngray}_j}    % instance feature at  j-th layer
+\def\resizedInstnfetr{\Bar{f^{\instngray}_j}}    % resized instance feature at  j-th layer
+\def\fusedfetr{f^{\tilde{\grayimg}}_j}  % fused full-image feature at j-th layer
+\def\fullweight{W_F}                % full-image weight map
+\def\instnweight{W^{i}_I}           % instance weight map
+\def\resizedInstnweight{\Bar{W^{i}_I}}           % resized instance weight map
+\def\colorspace{$\mathrm{CIE}~\mathrm{L^{\ast}a^{\ast}b^{\ast}}$}
+
+% ===== old =====
+% \def\gray{X}
+% \def\colordomain{Y}
+% \def\xi{\gray_i}
+% \def\yi{\colordomain_i}
+% \def\instancebb{B}
+% \def\bi{\instancebb_i}
+% \def\fm{M_F}
+% \def\instam{M_I}
+% \def\objm{M_O}
+% \def\fum{F_l}
+

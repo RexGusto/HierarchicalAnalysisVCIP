@@ -1,0 +1,152 @@
+% Macros - Jia-Bin Huang (jbhuang@vt.edu)
+
+\renewcommand{\baselinestretch}{1}       % for squeezing the draft into the page limit, do not use
+
+% =========================================
+% Useful macros
+% =========================================
+
+% Latin abbreviations
+\def\etal{et al.~}			  % and others, and co-workers
+% \newcommand\etal{et al.~}
+\def\eg{e.g.,~}               % for example
+\def\ie{i.e.,~}               % that is, in other words
+\def\etc{etc}                 % and other things, and so forth
+\def\cf{cf.~}                 % compare
+\def\viz{viz.~}               % namely, precisely
+\def\vs{vs.~}                 % against
+
+
+% Math related
+\DeclareMathOperator*{\argmin}{\arg\!\min} 
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+
+% Consistent margin adjustment for paragraphs, figures, and sections
+\newlength\paramargin
+\newlength\figmargin
+\newlength\secmargin
+\newlength\figcapmargin
+
+\setlength{\secmargin}{0.0mm}
+\setlength{\paramargin}{0.0mm}
+\setlength{\figmargin}{0.0mm}
+\setlength{\figcapmargin}{0.5mm}
+
+\setlength{\parskip}{0pt}     % 段落間距 0
+\setlength{\parindent}{1em}   % 段落開頭縮排（1em 可調）
+
+\newcommand{\red}{\textcolor{red}}
+\newcommand{\blue}{\textcolor{blue}}
+
+% minipage
+\newcommand{\mpage}[2]
+{
+\begin{minipage}{#1\linewidth}\centering
+#2
+\end{minipage}
+}
+
+\newcommand{\mfigure}[2]
+{
+\begin{subfigure}[b]{#1\linewidth}\centering
+\includegraphics[width=\linewidth]{#2}
+\end{subfigure}
+}
+
+
+\newcommand{\Paragraph}[1]
+{
+\vspace{\paramargin}
+\paragraph{#1}
+}
+
+\newcommand{\heading}[1]
+{
+\vspace{1mm}
+\noindent \textbf{#1}
+}   
+
+% References for figures, tables, equations, and sections
+\newcommand{\secref}[1]{Section~\ref{sec:#1}}
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}} 
+\newcommand{\tabref}[1]{Table~\ref{tab:#1}}
+\newcommand{\eqnref}[1]{Equation~\ref{eq:#1}}
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\prgref}[1]{Program~\ref{#1}}
+\newcommand{\algref}[1]{Algorithm~\ref{#1}}
+\newcommand{\clmref}[1]{Claim~\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\ptyref}[1]{Property~\ref{#1}}
+
+% Comments
+\long\def\ignorethis#1{}
+\newcommand {\jiabin}[1]{{\color{blue}\textbf{Jia-Bin: }#1}\normalfont}
+\newcommand {\james}[1]{{\color{violet}\textbf{James: }#1}\normalfont}
+\newcommand {\eric}[1]{{\color{magenta}\textbf{Eric: }#1}\normalfont}
+\newcommand {\todo}{{\textbf{\color{red}[TO-DO]\_}}}
+\def\newtext#1{\textcolor{blue}{#1}}
+\def\modtext#1{\textcolor{red}{#1}}
+\newcommand{\note}[1]{{\it\color{blue} #1}}
+
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\mb}[1]{\mathbf{#1}}
+
+\newcommand{\jbox}[2]{
+  \fbox{%
+  	\begin{minipage}{#1}%
+  		\hfill\vspace{#2}%
+  	\end{minipage}%
+  }}
+
+\newcommand{\jblock}[2]{%
+	\begin{minipage}[t]{#1}\vspace{0cm}\centering%
+	#2%
+	\end{minipage}%
+}
+
+
+% \titleformat{\section}
+%   {\normalfont\bfseries\centering}
+%   {\thesection.}{1em}{}
+
+% % 將 \subsection 調成 10pt 加粗
+% \titleformat{\subsection}
+%   {\normalsize\bfseries} % 10pt = \normalsize
+%   {\thesubsection.}{1em}{}
+
+% % 格式設定：斜體、不加粗、10pt、編號、左對齊
+% \titleformat{\subsubsection}
+%   {\normalsize\itshape}      % 10pt, 斜體
+%   {\thesubsubsection.}       % 顯示 5.1.1. 編號
+%   {1em}                      % 編號與文字之間距
+%   {}                         % 不加其他
+
+% % 間距設定：上間距1ex，下間距0.3ex（很緊湊）
+% \titlespacing*{\subsubsection}
+%   {0pt}       % 左邊距
+%   {1.5ex plus .3ex minus .3ex}  % 上方距離
+%   {0.3ex}     % 下方距離（正文與標題之間）
+
+% --- Section 樣式設定 ---
+\titleformat{\section}
+  {\normalsize\bfseries\centering} % 10pt 粗體 置中
+  {\thesection.}{0.25em}{}
+
+\titlespacing*{\section}
+  {0pt}{1.2em}{0.8em} % 上下空白（可調整為更精確 10pt 單位）
+
+% --- Subsection 樣式設定 ---
+\titleformat{\subsection}
+  {\normalsize\bfseries}  % 10pt 粗體 左對齊
+  {\thesubsection.}{0.25em}{}
+
+\titlespacing*{\subsection}
+  {0pt}{1.2em}{0.5em}
+
+% --- Subsubsection 樣式設定 ---
+\titleformat{\subsubsection}
+  {\normalsize\itshape}  % 10pt 斜體 左對齊
+  {\thesubsubsection.}{0.25em}{}
+
+\titlespacing*{\subsubsection}
+  {0pt}{1.2em}{0.3em}
