@@ -1,0 +1,7 @@
+pair,tau_by_max,tau_by_mean,best,gap_best_second
+aircraft vs cars,0.7530170891818817,0.8380952380952382,,
+aircraft vs cub,-0.07692396593484703,0.6666666666666667,,
+cars vs cub,-0.14797178180801124,0.6761904761904762,,
+aircraft: max vs mean,0.5707581758767128,,hivit_base_patch16_siglip_224.v2_webli,0.5099999999999909
+cars: max vs mean,0.43809523809523815,,hivit_base_patch16_siglip_224.v2_webli,0.7711000000000041
+cub: max vs mean,0.13842521523975243,,hivit_base_patch16_224.orig_in21k,0.03450000000000841

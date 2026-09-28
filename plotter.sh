@@ -1,11 +1,11 @@
 #!/bin/bash
 # Rebuilds every summary table and figure from the committed CSVs in data/, then the VCIP26 paper and its number check.
-# Run from the repo root in the asr env: bash plotter.sh [backbones|pseudo|vcip|few_examples|paper|verify ...] (default: all)
+# Run from the repo root in the asr env: bash plotter.sh [backbones|pseudo|vcip|few_examples|robustness|paper|verify ...] (default: all)
 set -euo pipefail
 PY="${PY:-python}"
 # a forwarded X display otherwise makes every figure round-trip over the network
 export MPLBACKEND=Agg
-STAGES=("${@:-backbones pseudo vcip few_examples paper verify}")
+STAGES=("${@:-backbones pseudo vcip few_examples robustness paper verify}")
 STAGES=(${STAGES[@]})
 run_stage() { [[ " ${STAGES[*]} " == *" $1 "* ]]; }
 plot() { echo "plot $*" | cut -c1-160; $PY -m codebase.plots.plot "$@" > /dev/null; }
@@ -205,6 +205,14 @@ fi
 
 
 # ============================================================
+# Robustness: hierarchical vs baseline per optimizer, ranking stability, seed noise
+# ============================================================
+if run_stage robustness; then
+    $PY -m codebase.analyses.robustness
+fi
+
+
+# ============================================================
 # VCIP26 paper: build from the figures as submitted, then check its numbers and figures against results_all/
 # ============================================================
 if run_stage paper; then
@@ -218,6 +226,8 @@ fi
 # ============================================================
 # wandb downloads (need an API key with access to nycu_pcs/Hierarchical); the CSVs above are their committed output
 # ============================================================
+# $PY -m codebase.download.dump_wandb_runs
+# $PY -m codebase.verify.reconcile_serials
 # $PY -m codebase.download.download_save_wandb_data --serials 23 24 --output_file hierarchical_stage1.csv
 # $PY -m codebase.download.download_save_wandb_data_feature_metrics --serials 26 28 --output_file hierarchical_feature_metrics_2.csv
 # $PY -m codebase.download.merge_acc_metrics_stats --input_file_metrics data/hierarchical_feature_metrics_2.csv --output_file hierarchical_all_2.csv
