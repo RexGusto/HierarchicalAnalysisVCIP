@@ -70,7 +70,10 @@ checkpoints are described in `docs/CHECKPOINTS.md`.
 |---|---|---|---|---|---|
 | 54 | Pseudo-hierarchy (HPH), 7 ratios 10–90 | soylocal | 21 × 10 × 7 | 1470 | `hierarchical_soylocal.csv`, `label_smooth_cutmix.csv` |
 | 55 | Baseline | soylocal | 21 × 10 | 210 | same |
-| 56–61 | Reruns at each model's best LR: SoyLocal baseline (56), SoyLocal pseudo at 90% (57), aircraft real hierarchy (58), aircraft baseline (59), all three FZ with hierarchy (60), CUB FZ baseline (61) | – | 21 × 1 | not downloaded | – |
+| 56, 57 | SoyLocal baseline (56) and pseudo-hierarchy at 90% (57), each backbone at a chosen LR, 200 epochs. Same code commit as each other, not as 54/55 (see `NEXT_STEPS.md`) | soylocal | 21 × 1 | not downloaded | – |
+| 58, 59 | Real hierarchy (58) and baseline (59), each backbone at its best LR, 50 epochs, seed 0. 16 of the 21 pairs share optimizer and LR, so this is the one pair that differs only in the hierarchy | aircraft | 21 × 1 | not downloaded | – |
+| 60 | Real hierarchy, FZ, each backbone at its best serial-24 LR; 39 runs at 50 epochs, 24 at 200 | aircraft, cub, cars | 21 × 1 | not downloaded | – |
+| 61 | Baseline, FZ, 4 backbones at one LR | cub | 4 × 1 | not downloaded | – |
 | 72, 73 | Baseline / pseudo 90%: batch size | soylocal | 8 each | 8 / 8 | `soylocal_bs.csv` |
 | 74, 75 | Baseline / pseudo 90%: epochs | soylocal | 25–250 epochs | 10 / 10 | `soylocal_epochs.csv` |
 | 76, 77 | Baseline / pseudo 90%: image size | soylocal | 112–560 px | 9 / 9 | `soylocal_is.csv` |

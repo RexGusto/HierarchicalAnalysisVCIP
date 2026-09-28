@@ -251,6 +251,11 @@ training less sensitive to the learning rate and optimizer."
 
 ### Analyses on existing data (no training)
 
+0. Serials 58 and 59 are the one existing pair that differs only in the hierarchy: aircraft,
+   21 backbones, 50 epochs, seed 0, each at its best LR, with 16 of 21 pairs sharing optimizer
+   and LR. Hierarchy scores higher in 14 of 21, by +0.45 points on average. It is one LR per
+   backbone, so it tests peak accuracy, not robustness.
+
 1. Recompute robustness as regret, basin width and expected maximum, per optimizer and per
    dataset. Report rankings with bootstrap intervals over learning rates.
 2. For Q1, use a Pareto plot of maximum against mean regret per dataset as the selection rule.
