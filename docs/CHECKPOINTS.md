@@ -9,6 +9,11 @@ its serial list. No Hierarchical checkpoint is on the ERISLab Hub or in `fgir_zo
 FGIR-Backbones Model Zoo session is preparing two Hub repositories: one for the backbone
 study, one for the pseudo-hierarchy study.
 
+A second set comes from ed520's training folders, for runs that exist nowhere else: serials
+100, 102, 107 and 108. It sits in `/mnt/hdd10tb/edwin/ed520_cleanup/`, split between
+`hierarchical_ed520_only/` and `serial100_ckpts/`, and holds 103 `.pth` files: best, last and
+per-epoch checkpoints. This repo's check has not been run on it.
+
 **What a file holds.** Each file holds `{model, config, epoch, accuracy}`:
 - `config` is the training argparse namespace;
 - `accuracy` is the final-epoch top-1 on the evaluation split;
