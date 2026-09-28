@@ -26,13 +26,14 @@ SORT_COLS = [
 
 
 def get_wandb_project_runs(project, serials=None):
+    # lazy listings (the default in recent wandb) return runs without their config
     api = wandb.Api()
 
     if serials:
-        runs = api.runs(path=project, per_page=2000,
+        runs = api.runs(path=project, per_page=2000, lazy=False,
                         filters={'$or': [{'config.serial': s} for s in serials]})
     else:
-        runs = api.runs(path=project, per_page=2000)
+        runs = api.runs(path=project, per_page=2000, lazy=False)
 
     print('Downloaded runs: ', len(runs))
     return runs
