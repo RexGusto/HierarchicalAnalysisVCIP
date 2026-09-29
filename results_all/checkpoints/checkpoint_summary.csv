@@ -8,11 +8,11 @@ ckpts/serial60_ckpts,63,60,0,0,,2/2
 ckpts/serial84_ckpts,13,84,12,12,0.0,2/2
 ckpts/serial85_ckpts,13,85,13,13,0.0,2/2
 deprecated/feature_visualization_serial34,15,34,0,0,,2/2
-deprecated/from_tgda_20260922/results_tgda_65,19,32,19,18,0.31,0/2
-deprecated/from_tgda_20260922/results_tgda_nycuhpc,2,32,2,2,0.0,0/2
-deprecated/from_tgda_20260922/results_tgda_vsp,20,32,20,20,0.0,0/2
+deprecated/from_tgda_20260922/results_tgda_65,19,32,0,0,,0/2
+deprecated/from_tgda_20260922/results_tgda_nycuhpc,2,32,0,0,,0/2
+deprecated/from_tgda_20260922/results_tgda_vsp,20,32,0,0,,0/2
 deprecated/hifa_head,29,"110,210,300,310",0,0,,1/2
-deprecated/not_released_20260929/baseline_ckpts,63,32,61,24,54.4083,2/2
+deprecated/not_released_20260929/baseline_ckpts,63,32,63,57,5.6437,2/2
 deprecated/not_released_20260929/pseudo_hierarchy_ckpts,184,40,182,178,0.4142,2/2
 deprecated/not_released_20260929/serial102_ckpts,21,102,21,21,0.0,2/2
 deprecated/not_released_20260929/serial103_ckpts,21,103,21,21,0.0,2/2

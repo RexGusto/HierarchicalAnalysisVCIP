@@ -20,7 +20,9 @@ def read_ckpt_meta(path):
 
 
 def load_runs(data_dir):
-    dfs = [pd.read_csv(f, low_memory=False) for f in sorted(glob.glob(os.path.join(data_dir, '*.csv')))]
+    # the run exports only; wandb_runs.csv is the project index, matched in wandb_match.csv
+    files = [f for f in sorted(glob.glob(os.path.join(data_dir, '*.csv'))) if os.path.basename(f) != 'wandb_runs.csv']
+    dfs = [pd.read_csv(f, low_memory=False) for f in files]
     df = pd.concat([d for d in dfs if 'serial' in d.columns], ignore_index=True)
     df = df[KEYS + ['val_acc_level1']].drop_duplicates()
     return df

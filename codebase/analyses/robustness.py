@@ -90,8 +90,11 @@ def main():
     args = parser.parse_args()
 
     os.makedirs(args.results_dir, exist_ok=True)
-    overall, per_dataset = hier_vs_base(load_pairs(args.real_csv, args.soylocal_csv))
-    tables = dict(hier_vs_base=overall, hier_vs_base_per_dataset=per_dataset,
+    runs = load_pairs(args.real_csv, args.soylocal_csv)
+    overall, per_dataset = hier_vs_base(runs)
+    # serial 55's baselines predate the loss fix in the code repo (74ef267)
+    no_soylocal = hier_vs_base(runs[runs.dataset != 'soylocal'])[0]
+    tables = dict(hier_vs_base=overall, hier_vs_base_per_dataset=per_dataset, hier_vs_base_no_soylocal=no_soylocal,
                   ranking_stability=ranking_stability(args.stage1_csv), seed_noise=seed_noise(args.seeds_csv),
                   family_by_optimizer=family_by_optimizer(args.stage1_csv))
     pd.set_option('display.width', 200)

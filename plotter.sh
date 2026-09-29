@@ -242,3 +242,5 @@ fi
 # $PY -m codebase.download.download_save_wandb_data --serials 83 86 --output_file other_soy_stuff.csv
 # $PY -m codebase.download.download_save_wandb_data --serials 83 86 54 55 90 91 92 93 94 95 --output_file label_smooth_cutmix.csv
 # $PY -m codebase.download.download_save_wandb_data --serials 102 103 --output_file model_low_examples.csv
+# $PY -m codebase.download.download_save_wandb_data --serials 32 --output_file hierarchical_serial32.csv
+# $PY -m codebase.download.dump_run_args --serials 55 86 32 101
