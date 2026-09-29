@@ -51,7 +51,7 @@ checkpoints are described in `docs/CHECKPOINTS.md`.
 
 | Serial | What | Datasets | Models × LRs × other | Runs in CSV | CSV |
 |---|---|---|---|---|---|
-| 32 | Baseline, no hierarchy | aircraft, cub, cars (+ soylocal in older CSVs) | 21 × 10 | 620 (`_baseline` only) | `hierarchical_real.csv`, `hierarchical_pseudo*.csv` |
+| 32 | Baseline, no hierarchy; 35 configurations missing (`codebase/experiments/rerun_32.sh`) | aircraft, cub, cars (+ soylocal in older CSVs) | 21 × 10 | 627 (`_baseline` only) | `hierarchical_serial32.csv`, `hierarchical_real.csv`, `hierarchical_pseudo*.csv`, `hierarchical_baseline.csv` |
 | 39 | Pseudo-hierarchy, 7 ratios, IG-1B or SigLIP-v2 extractor | `*_pt_ig1b`, `*_pt_siglipv2` (+ soylocal) | 1 × 10 × 7 ratios × 2 extractors | 1958 | `hierarchical_pseudo.csv` |
 | 40 | Pseudo-hierarchy, ratios 25/50/70 | `*_pl` | 21 × 10 × 3 | 1790–1874 | `hierarchical_pseudo_2.csv`, `hierarchical_algo.csv`, `hierarchical_diff_extractor.csv` |
 | 41 | Pseudo-hierarchy, CLIP on CUB, 20 extractors | cub | 20 × 10 | not downloaded | – |
@@ -69,8 +69,8 @@ checkpoints are described in `docs/CHECKPOINTS.md`.
 | Serial | What | Datasets | Models × LRs × other | Runs in CSV | CSV |
 |---|---|---|---|---|---|
 | 54 | Pseudo-hierarchy (HPH), 7 ratios 10–90 | soylocal | 21 × 10 × 7 | 1470 | `hierarchical_soylocal.csv`, `label_smooth_cutmix.csv` |
-| 55 | Baseline | soylocal | 21 × 10 | 210 | same |
-| 56, 57 | SoyLocal baseline (56) and pseudo-hierarchy at 90% (57), each backbone at a chosen LR, 200 epochs. Same code commit as each other, not as 54/55 (see `NEXT_STEPS.md`) | soylocal | 21 × 1 | not downloaded | – |
+| 55 | Baseline. 170 runs trained with the loss bug (`docs/NEXT_STEPS.md`); replaced by `codebase/experiments/rerun_55.sh` | soylocal | 21 × 10 | 210 | same |
+| 56, 57 | SoyLocal baseline (56) and pseudo-hierarchy at 90% (57), each backbone at a chosen LR, 200 epochs. Trained after the loss fix; same code commit as each other | soylocal | 21 × 1 | not downloaded | – |
 | 58, 59 | Real hierarchy (58) and baseline (59), each backbone at its best LR, 50 epochs, seed 0. 16 of the 21 pairs share optimizer and LR, so this is the one pair that differs only in the hierarchy | aircraft | 21 × 1 | not downloaded | – |
 | 60 | Real hierarchy, FZ, each backbone at its best serial-24 LR; 39 runs at 50 epochs, 24 at 200 | aircraft, cub, cars | 21 × 1 | not downloaded | – |
 | 61 | Baseline, FZ, 4 backbones at one LR | cub | 4 × 1 | not downloaded | – |
@@ -83,7 +83,7 @@ checkpoints are described in `docs/CHECKPOINTS.md`.
 | 83 | Baseline, train on train+val, evaluate on test | cotton, soyageing, soyageing_r1, soygene, soyglobal | 2 × 10 | 99 | `other_soy_stuff.csv`, `label_smooth_cutmix.csv` |
 | 84 | Pseudo 70/90, best LR, seeds 1/10/100 | 8 leaf datasets | 2 × 8 LRs | 53 | `cotton_seeds.csv` |
 | 85 | Baseline, best LR, seeds 1/10/100 | 8 leaf datasets | 2 × 8 LRs | 48 | `cotton_seeds.csv` |
-| 86 | Pseudo 70/90, as 83 | as 83 | 2 × 10 × 2 | 185 | `other_soy_stuff.csv`, `label_smooth_cutmix.csv` |
+| 86 | Pseudo 70/90, as 83. The SoyAgeing-R1 ratio-70 runs used the all-rounds split; replaced by `codebase/experiments/rerun_86.sh` | as 83 | 2 × 10 × 2 | 185 | `other_soy_stuff.csv`, `label_smooth_cutmix.csv` |
 | 90–95 | Same-class mix and hierarchical label smoothing at 90% | cotton, soylocal | 2 × 10 | 40–60 each | `label_smooth_cutmix.csv` |
 
 The two ViT-B models in 81–86 are DeiT-B (`hideit_base_patch16_224.fb_in1k`) and ViT-B
@@ -114,7 +114,7 @@ configs in `data/wandb_runs.csv`.
 | 87 | Pseudo-hierarchy at 90%, 50 epochs, DeiT and ViT-B with pseudo-hierarchies from several feature extractors (`soylocal_pseudo_<extractor>_90.yaml`) | soylocal | 130 | 0 |
 | 99 | Pseudo-hierarchy at 90%, 50 epochs, DeiT and ViT-B, 6 AdamW learning rates | soylocal | 12 | 0 |
 | 100 | DeiT baseline and pseudo-hierarchy at 90%, SGD 0.01, 50 epochs | soylocal | none (ed520 only) | 2 |
-| 101 | Baseline sweep of 13 backbones (Nov–Dec 2025), 200 epochs. Same configurations and counts as the committed serial-32 CSV rows of those backbones; wandb serial 32 now holds a July 2026 rerun | aircraft, cars, cub (`_baseline`) | 380 | 0 |
+| 101 | Baseline sweep of 13 backbones, 200 epochs, run with `arkel23/TGDA` `tools/train_teacher.py` on plain timm models. Replaced by serial 32; to move to `nycu_pcs/Others` | aircraft, cars, cub (`_baseline`) | 380 | 0 |
 | 104 | Baseline, 3 images per class, one run | aircraft | 1 | 0 |
 | 105, 106 | No hierarchy, SGD 0.01, 50 epochs, seed 42; run names end in `_Metric_n16` and similar. 106 was still logging on 2026-09-28 | aircraft, cars, cub | 62, 46 | 0 |
 | 107, 108 | Frozen ViT-B with hierarchical adapters from code not committed to the code repo, 50 epochs | aircraft | 2, 11 | ed520 only |

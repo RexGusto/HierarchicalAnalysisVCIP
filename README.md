@@ -47,7 +47,7 @@ Other checks:
 python -m codebase.verify.verify_paper_numbers     # VCIP26 numbers, claims and figures
 python -m codebase.verify.diff_results             # regenerated CSVs vs HEAD, by value
 python -m codebase.verify.verify_checkpoints --ckpt_root /mnt/hdd10tb/edwin/results_hierarchical \
-    --code_repo /mnt/ssd2tb/edwin/projects/Hierarchical   # fgir_timm912 env
+    --code_repo /mnt/ssd2tb/edwin/projects/Hierarchical --load_per_folder 2   # fgir_timm912 env
 ```
 
 ## Layout
@@ -74,6 +74,8 @@ python -m codebase.verify.verify_checkpoints --ckpt_root /mnt/hdd10tb/edwin/resu
 | `codebase/download/dump_wandb_runs.py` | Indexes every run of the wandb project into `data/wandb_runs.csv` |
 | `codebase/download/merge_acc_metrics_stats.py` | Joins accuracy, feature metrics and pretraining statistics into `data/hierarchical_all_*.csv` |
 | `codebase/download/update_wandb_project_serialx_to_serialy_based_on_substr_in_field.py` | Moves runs between serials on wandb |
+| `codebase/download/dump_run_args.py` | Saves each run's launch arguments, code repo and commit to `data/run_args/serial_<N>.csv` |
+| `codebase/download/replace_serial_rows.py` | Replaces one serial's rows in `data/*.csv` with a fresh download and archives the old rows |
 | `codebase/analyses/summarize_acc.py` | Per serial, dataset and backbone: mean, max, standard deviation and ADA ratio over the learning-rate sweep |
 | `codebase/analyses/summarize_acc_metrics.py` | The same, joined with feature metrics |
 | `codebase/analyses/compute_diff.py` | Pseudo-hierarchy minus baseline tables |
@@ -83,6 +85,8 @@ python -m codebase.verify.verify_checkpoints --ckpt_root /mnt/hdd10tb/edwin/resu
 | `codebase/plots/merge_corr_plots.py` | Tiles regression plots into grids |
 | `codebase/build/lr_script.py` | Writes training command files for learning-rate sweeps |
 | `codebase/build/pptx_to_md.py` | Converts a slide deck to markdown with its images |
+| `codebase/build/rerun_scripts.py` | Writes `codebase/experiments/rerun_<serial>.sh` from `data/run_args/` |
+| `codebase/experiments/rerun_*.sh` | Training commands, one per run, that replace serials 55 and 86 and fill serial 32 (see `docs/NEXT_STEPS.md`); run in the code repo |
 | `codebase/build/extract_table_from_pdf.py` | Extracts text tables from a PDF page |
 | `codebase/verify/*` | The three checks above, and `reconcile_serials.py`, which counts every wandb serial against `data/`, `docs/SERIALS.md` and the checkpoints |
 | `codebase/logs/*.sh` | The command logs `plotter.sh` was built from |

@@ -2,6 +2,28 @@
 
 Dated record of substantive changes. Open items are in `NEXT_STEPS.md`.
 
+## 2026-09-29 — wrong serials: cause, replacement data, rerun scripts
+
+- **Serial 55.** The 14.5-point DeiT baseline gap between serials 55 and 56 was first put down
+  to commits and hosts. A comparison of all config keys and launch arguments found them equal;
+  the cause is the `OverallLoss` indexing bug at `f0c41d8` in the code repo, fixed in
+  `74ef267`, which trained single-head models on the last image of each batch. Confirmed on CPU
+  by running both versions of the loss on one batch.
+- **Serial 101.** The committed serial-32 baseline rows of 13 backbones were wandb serial 101,
+  from `arkel23/TGDA` `tools/train_teacher.py`. They were replaced in `hierarchical_real.csv`,
+  `hierarchical_pseudo.csv`, `hierarchical_pseudo_2.csv` and `hierarchical_baseline.csv` by
+  wandb serial 32 (`data/hierarchical_serial32.csv`); the old rows are in
+  `/mnt/hdd10tb/edwin/deprecated/hierarchical_buggy_serials_20260929/`. The robustness gains
+  fell (SGD regret −4.5 to −4.15 over 84 pairs), and `robustness.py` now also writes the 63
+  pairs without the buggy SoyLocal baselines.
+- **Checkpoints.** `verify_checkpoints` had started matching against `data/wandb_runs.csv`
+  once that index was committed; it now skips it. With the new rows, `baseline_ckpts` match
+  63 of 63 (57 exact, was 24), and the 41 TGDA checkpoints match none.
+- **Serial 86.** The SoyAgeing-R1 ratio-70 pseudo-label files were built from all rounds.
+- **Reruns.** `dump_run_args.py` saves each run's launch arguments; `rerun_scripts.py` turns
+  them into `codebase/experiments/rerun_{55,86,32}.sh` (210, 185 and 35 commands). Nothing
+  was run.
+
 ## 2026-09-28 — restructure into the standard analysis-repo layout
 
 - **Layout.** The repo now uses the `ILA_SAW_Analysis` / `BackbonesAnalysis` layout.

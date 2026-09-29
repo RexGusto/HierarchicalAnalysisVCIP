@@ -64,8 +64,8 @@ are in `results_all/checkpoints/`.
 | `ckpts/real_hierarchy_ckpts` | 21 | 63 | 0 | – | Released. No CSV holds serial 21. It reruns serial 23 at each backbone's best setting (seed 1): on average 0.13 points below the serial-23 maximum. |
 | `ckpts/serial56_ckpts` … `serial60_ckpts` | 56–60 | 147 | 0 | – | Released. Best-learning-rate reruns; no CSV holds these serials. Serial 60 reruns serial 24. |
 | `ckpts/serial84_ckpts`, `serial85_ckpts` | 84, 85 | 26 | 25 | 25 | Released. Exact. |
-| `deprecated/not_released_20260929/*` | 32, 39, 40, 55, 61, 81–83, 86, 102, 103 | 513 | 504 | 463 | Not released; the rows below break it down. |
-| … `baseline_ckpts` | 32 | 63 | 61 | 24 | 37 differ from the CSV row, by up to 54.4 points (CLIP on cars: 27.47 against 81.88). The serial-32 CSV rows mix two run generations. |
+| `deprecated/not_released_20260929/*` | 32, 39, 40, 55, 61, 81–83, 86, 102, 103 | 513 | 506 | 496 | Not released; the rows below break it down. |
+| … `baseline_ckpts` | 32 | 63 | 63 | 57 | 6 differ from the CSV row, by up to 5.6 points. |
 | … `pseudo_hierarchy_ckpts` | 40 | 184 | 182 | 178 | Largest difference 0.41. |
 | … `serial54_ckpts` | 39 | 140 | 140 | 140 | The last runs (AdamW 5e-6) of SoyLocal HPH serial 54; the config inside still says 39. Includes the VCIP26 headline DeiT at ratio 90. |
 | … `serial55_ckpts` | 32 | 21 | 21 | 21 | The last runs of the SoyLocal baseline serial 55; the config inside still says 32. |
@@ -84,7 +84,7 @@ are listed in `results_hierarchical/RENAMES_20260929.tsv`.
 | `not_released_20260929` | 513 | Sweep tails and other serials outside the release set, with their folder names kept. |
 | `hifa_head` | 29 | HiFA-head experiments, unused. 10 of them (`*_fz_110`) do not load: their weights hold `model.head.add_pre_classifiers.3.*`, which the stored config does not build. |
 | `pseudo_hierarchy_serial39` | 45 | First pseudo-hierarchy runs (ICME26's BPH section), replaced by serial 40. 43 match no wandb run; 2 match on name and serial only. |
-| `from_tgda_20260922` | 41 | The older serial-32 run generation, plain timm models. Their wandb runs no longer exist, and `ckpts/baseline_ckpts` holds the same configurations. |
+| `from_tgda_20260922` | 41 | Wandb serial 101 (`arkel23/TGDA`, plain timm models), stored as serial 32. No CSV holds these runs, and `ckpts/baseline_ckpts` holds the same configurations on the Hierarchical code. |
 | `serial57_ratio70_no_run` | 2 | SoyLocal DeiT-3 at ratio 70 with no wandb run; serial 57 is documented as ratio 90. |
 | `serial39_siglip_no_run` | 7 | SoyLocal SigLIP-v2 pseudo-hierarchy files at ratios 10–90 with no wandb run; their accuracy matches no serial-54 run. |
 | `serial84_85_no_run` | 8 | Serial 84 (5) and 85 (3) files whose seed and accuracy match no wandb run. |

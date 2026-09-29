@@ -23,11 +23,16 @@ rules are in `/mnt/ssd2tb/edwin/analysis/WRITING_RULES.md`.
 root-relative. `utils.py` stays at the root as the shared library. `codebase/` is grouped by
 what a script produces: `download/` fills `data/` from wandb, `analyses/` writes a CSV,
 `plots/` writes a PNG, `build/` writes a `.sh` or `.md`, `verify/` writes only a report and an
-exit code. `codebase/logs/` holds the three command logs the pipeline was reconstructed from;
-they are history, not entry points, and their paths predate the move into `codebase/`.
+exit code. `codebase/experiments/` holds training commands for the code repo, written by
+`codebase/build/rerun_scripts.py`; nothing here runs them. `codebase/logs/` holds the three
+command logs the pipeline was reconstructed from; they are history, not entry points, and
+their paths predate the move into `codebase/`.
 
 ## Data and serials
 
+- A serial known to be wrong is rerun in full under the same serial number, never patched or
+  kept beside the new runs. Its old wandb runs move to `nycu_pcs/Others` and its old CSV rows
+  to `/mnt/hdd10tb/edwin/deprecated/` (`codebase.download.replace_serial_rows`).
 - `data/*.csv` are wandb exports of the project `nycu_pcs/Hierarchical`, one or more serials
   per file; `docs/SERIALS.md` maps serials to experiments, CSVs and papers. Several CSVs
   overlap (serial 23 is in eight of them); the file a plot reads is the one named in

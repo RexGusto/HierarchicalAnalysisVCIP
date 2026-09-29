@@ -16,6 +16,12 @@ Values follow one rule:
 
 These are proposals; the source is unchanged.
 
+Two groups of items wait for reruns (next section):
+- Items 2, 3, 6 and 12 compare HPH with the serial-55 baselines, which trained with a loss
+  bug. Recompute them after `codebase/experiments/rerun_55.sh`.
+- Items 7, 9 and 10 use SoyAgeing-R1 values from serial 86. Recompute them after
+  `codebase/experiments/rerun_86.sh`.
+
 1. **Author block, l.24.** Change: the camera-ready still reads "Anonymous Authors". Kevin
    Tandian is the third author, and Augusto and Edwin share first authorship. Affiliations
    follow the CVGIP25 camera-ready.
@@ -75,9 +81,10 @@ These are proposals; the source is unchanged.
 7. **Table `tab_compare_othersoy`, l.193 and l.196.** Change the ViT-B SoyLocal cell, and
    both HPH SoyAgeing-R1 cells. Reasons:
    - ViT-B's SoyLocal maximum is 58.83;
-   - the SoyAgeing-R1 cells come from serial-86 runs trained on the full 4,944-image
-     training set. At the 5-per-class split the text describes (984 images), DeiT reaches
-     86.16 and ViT-B 84.24. DeiT stays best in every column.
+   - the SoyAgeing-R1 cells come from the serial-86 ratio-70 runs. Their pseudo-label files
+     were built from all SoyAgeing rounds (4,944 training images), not from R1 (984). The
+     ratio-90 runs used the right split: DeiT reaches 86.16 and ViT-B 84.24. DeiT stays best
+     in every column.
    - Before: "HPH (Ours) & 68.3 & 86.3 & 58.7" and "HPH (Ours) & 72.5 & 89.6 & 64.3"
    - After: "HPH (Ours) & 68.3 & 84.2 & 58.8" and "HPH (Ours) & 72.5 & 86.2 & 64.3"
 8. **Dataset sizes, l.206.** Decision: 990 or 984. Reason: the serial-86 low-resource runs
@@ -106,16 +113,82 @@ These are proposals; the source is unchanged.
     - After: `--keep_serials 55 54 --input_file data/hierarchical_soylocal.csv`, then copy to
       `drafts/VCIP26/latex/figures/`
 
-12. **The headline gain, l.177 and l.215.** Decision: keep the claim, or qualify it. Reason:
-    the 12.5-point DeiT gain compares serial 55 and serial 54, which ran on different code
-    commits and hosts. On one commit, a baseline rerun (serial 56) reaches 63.33 at the same
-    setting, and HPH reruns (serial 57) reach 61.67–65.50. The next section has the table.
+12. **The headline gain, l.177 and l.215.** Decision: restate the gain after the serial-55
+    reruns. Reason: 170 of the 210 serial-55 baselines trained on one image per batch (next
+    section). The DeiT baseline scores 48.83 with the bug and 63.33 without it (serial 56), so
+    most of the 12.5-point gain is the bug. The HPH runs are not affected.
     - Current: "DeiT obtains the largest gain of **12.5%** to max accuracy over the
       non-hierarchical baseline."
-    - No replacement text is proposed until the baseline is rerun on the HPH run's commit.
+    - No replacement text is proposed until `codebase/experiments/rerun_55.sh` has run.
 
 Counts: 12 items. 8 changes are ready to apply (1–7 and 9–10). 4 need a decision: items 8,
-11 and 12, and Kevin Tandian's department in item 1.
+11 and 12, and Kevin Tandian's department in item 1. Items 2, 3, 6, 7, 9, 10 and 12 change
+again after the reruns.
+
+## Reruns that replace wrong serials (decision)
+
+Three serials are wrong and are replaced in full, under the same serial number. The scripts
+in `codebase/experiments/` hold one literal command per run, rebuilt from each run's recorded
+launch arguments (`data/run_args/serial_<N>.csv`). Every line parses with the code repo's
+argument parser. None has been run.
+
+| Serial | What is wrong | Script | Runs |
+|---|---|---|---|
+| 55 | SoyLocal baselines trained with a loss bug | `rerun_55.sh` | 210 |
+| 86 | SoyAgeing-R1 ratio-70 pseudo-labels built from the wrong split | `rerun_86.sh` | 185 |
+| 32 | Configurations of the 21-backbone baseline sweep with no finished run | `rerun_32.sh` | 35 |
+
+**Serial 55, the loss bug.** At code commit `f0c41d8`, `OverallLoss.forward` in
+`hierarchical/train_utils/calc_loss.py` computed `self.criterion(output[-1], targets[-1])`.
+- A hierarchical model returns a tuple of per-level logits, so `[-1]` selects the finest
+  level, as intended.
+- A baseline model returns one `[B, C]` tensor, so `[-1]` selects the last image of the batch.
+  Each step trained on 1 of 8 images.
+- Evaluation was correct, because `compute_hierarchy_accuracy` already wrapped tensors in a
+  list.
+- Commit `74ef267` wraps tensors in a list before indexing. Checked on CPU: for a `[8, 200]`
+  batch, the loss at `f0c41d8` equals the last image's cross-entropy (6.0201), and at
+  `74ef267` it equals the batch mean (6.0483).
+
+The flags do not explain the gap. All 140 config keys and the launch arguments of these runs
+were compared, DeiT at AdamW 5e-6, 200 epochs, seed 0:
+
+| Serial | Run | Accuracy | Commit |
+|---|---|---|---|
+| 55, baseline | `fd32sfup` | 48.83 | `f0c41d8` (bug) |
+| 56, baseline rerun | `jtetov5g` | 63.33 | `8ad68bc` |
+| 54, HPH 90% | `aafc7jba` | 64.33 | `234edfc` |
+| 57, HPH 90% reruns | `nmnz973q`, `3xcx9k9w` | 65.50, 61.67 | `8ad68bc`, `d6ed1b7` |
+
+The baselines differ only in `cpu_workers` and `dataset_in_memory`, a flag that `f0c41d8`
+lacks and serial 56 leaves off. Of the other baseline serials, none ran before `74ef267`: 32 on
+wandb, 56, 59, 61, 81, 83, 85, 94 and 102. Serials 23, 24 and 54 train hierarchical models.
+
+**Serial 86, the wrong split.** `soyageing_r1_hierarchical_pseudo_{deit,vit_b}_70.csv` were
+built from `train_val.csv` (all rounds, 4,944 training images) instead of `train_val_R1.csv`
+(984). The other datasets and the ratio-90 files are right. Regenerate the two files before
+running `rerun_86.sh`.
+
+**Serial 101, the TGDA baseline.** The committed serial-32 rows of 13 backbones were wandb
+serial 101: runs of `arkel23/TGDA` `tools/train_teacher.py` on plain timm models, with a
+pooled linear head and a square-resize test crop. The hierarchical serial 23 they were paired
+with ran on the Hierarchical code. These rows are now replaced by wandb serial 32, which ran
+all 21 backbones on the Hierarchical code with serial 23's flags; `rerun_32.sh` fills its
+gaps. Old against new, over 584 shared configurations: median difference 0.00, mean +0.53,
+393 within 1 point; the per-backbone maximum rises by 0.61 on average.
+
+Procedure, per serial:
+1. Move the old wandb runs to `nycu_pcs/Others`. For serial 32, move only its 31 unfinished
+   runs, and move serial 101.
+2. Run the script from `projects/Hierarchical` at commit `0ce6620` or later.
+3. Re-download (the commands are at the end of `plotter.sh`) and compare old and new per
+   configuration.
+4. Replace the old rows with `codebase.download.replace_serial_rows`; it archives them to
+   `/mnt/hdd10tb/edwin/deprecated/`. The serial-101 rows are already archived in
+   `/mnt/hdd10tb/edwin/deprecated/hierarchical_buggy_serials_20260929/`.
+5. Rerun `plotter.sh`. For 55 and 86, regenerate the VCIP26 figures, rerun
+   `codebase.verify.verify_paper_numbers`, and update the VCIP26 list above.
+6. Delete the archived rows and the moved wandb runs once the new numbers are settled.
 
 ## 4-page resubmission on backbone training strategies (decision)
 
@@ -127,36 +200,9 @@ The goal is a short paper with two claims:
 
 The measurements below come from the committed CSVs. Serial 23 (hierarchical) is paired with
 32 (baseline) on aircraft, CUB and cars, and 54 with 55 on SoyLocal: 21 backbones, 84 pairs.
-`python -m codebase.analyses.robustness` computes them into `results_all/robustness/`.
-
-### First: the baseline and hierarchical runs used different code
-
-Serials 54 and 55, the SoyLocal HPH and baseline sweeps behind the VCIP26 headline, ran on
-different code commits and hosts. Consider DeiT at AdamW 5e-6, 200 epochs, seed 0, with the
-same config file, as recorded in wandb `run.metadata`:
-
-| Serial | Run | Accuracy | Commit | Host |
-|---|---|---|---|---|
-| 55, baseline | `fd32sfup` | 48.83 | `f0c41d8` | pc427-08 |
-| 54, HPH 90% | `aafc7jba` | 64.33 | `234edfc` | camel |
-| 56, baseline rerun | `jtetov5g` | 63.33 | `8ad68bc` | gpu |
-| 57, HPH 90% rerun | `nmnz973q` | 65.50 | `8ad68bc` | gpu |
-| 57, HPH 90% reruns | `3xcx9k9w`, `0kcmivs8` | 61.67, 61.67 | `d6ed1b7` | pcs5060ti |
-
-- **On one commit the gap nearly closes.** Baseline and HPH differ by 2.2 points (63.33
-  against 65.50), not the 12.5 the paper prints.
-- **The 14.5-point baseline jump is unexplained.** It could be a code change between
-  `f0c41d8` and `234edfc`, a host difference, or run-to-run variance.
-- **The 84-pair comparison above may share this problem.** It pairs serial 23 with serial 32,
-  which ran months apart and mixes two run generations.
-
-Before any resubmission:
-1. Diff `f0c41d8..234edfc` in `projects/Hierarchical`, looking for changes to data loading,
-   loss or evaluation.
-2. Rerun the SoyLocal baseline and HPH sweeps, and a subset of 23 against 32, on one commit
-   and one host, with 3 seeds.
-
-Until then, treat the Q2 gains below as provisional.
+`python -m codebase.analyses.robustness` computes them into `results_all/robustness/`. The
+serial-55 SoyLocal baselines trained with the loss bug described above, so the numbers below
+use the 63 pairs without SoyLocal (`hier_vs_base_no_soylocal.csv`) until serial 55 is rerun.
 
 ### What the earlier analysis got wrong or missed
 
@@ -198,7 +244,8 @@ Until then, treat the Q2 gains below as provisional.
    - ViTs, especially CLIP and MAE: their fine-tuning recipes depend on layer-wise decay (Dong
      et al., arXiv 2212.06138).
 5. **Data hygiene.**
-   - Serial 32 mixes two run generations from different hosts.
+   - The baselines of 13 backbones came from another codebase (serial 101), and the SoyLocal
+     baselines from a buggy loss (serial 55). Both are covered in the reruns section above.
    - `data/hierarchical_pseudo_2.csv` has 53 rows that share a (serial, dataset, model,
      optimizer, learning rate, ratio) key: 4 in serial 32, 49 in serial 40.
    - `summarize_acc` keeps duplicates, so some sweeps average more than 10 runs.
@@ -207,16 +254,18 @@ Until then, treat the Q2 gains below as provisional.
 
 ### What the data already say about Q2
 
-- **Robustness gain.** Hierarchical training lowers mean regret by 4.5 points under SGD and
-  4.3 under AdamW, and raises the mean over the grid by 6.4 and 6.1. It is more robust in
-  87% (SGD) and 81% (AdamW) of the 84 pairs (Wilcoxon p < 0.001).
-- **Accuracy gain.** It also raises the maximum, by 1.9 (SGD) and 1.8 (AdamW), in 79% and 66%
-  of pairs. The paper can claim both a robustness and an accuracy gain.
+- **Robustness gain.** Over the 63 pairs, hierarchical training lowers mean regret by 2.71
+  points under SGD and 1.58 under AdamW, in 67% and 73% of pairs (Wilcoxon p < 0.001 and
+  p = 0.001). It raises the mean over the grid by 2.98 and 2.83, in 81% of pairs under each.
+- **Accuracy gain.** It raises the maximum by 0.28 under SGD (60% of pairs, p = 0.012) and
+  1.25 under AdamW (73%, p = 0.003). The SGD gain is below the 1.05-point seed noise, so the
+  paper can claim robustness, and a peak-accuracy gain only under AdamW.
 - **Gradient scale is ruled out.** The gain is the same under SGD and AdamW. Adam ignores
   gradient scale, and every run clipped the gradient norm to 1.0. So the summed loss does not
   act as a larger learning rate.
-- **The gain grows as data shrinks.** Mean over the grid rises by 12.0 points on SoyLocal (3
-  images per class) against 3.0 to 5.0 on CUB, cars and aircraft.
+- **Whether the gain grows as data shrinks is open.** SoyLocal (3 images per class) shows the
+  largest gain, but against the buggy serial-55 baselines. Serials 102/103 and the serial-55
+  reruns test it.
 
 ### Candidate mechanisms for Q2, with the test that separates them
 
@@ -267,7 +316,7 @@ training less sensitive to the learning rate and optimizer."
    metadata-only baseline (family and objective) as the bar to beat.
 4. Run the Q2 regressions from mechanism 1 (gain against images per class and against cluster
    ratio), and the checkpoint logit-norm and Hessian checks from mechanisms 3 and 4.
-5. Deduplicate the CSVs, and keep one serial-32 generation per comparison.
+5. Deduplicate the CSVs.
 
 ### New experiments, most convincing first
 
@@ -324,10 +373,9 @@ Kept, in brief:
   - the small ablation pairs (42/43, 62–79);
   - the label-smoothing arms (90, 92, 94).
 - **History:** 39 (ICME26), 51 and 70 (CVPRW26).
-- **Serial 101** is not a stale duplicate of 32. Its 380 runs have the same configurations and
-  counts (126, 124 and 130) as the committed serial-32 CSV rows of 13 backbones, and 112 of
-  372 accuracies are identical. Wandb serial 32 now holds a July 2026 rerun of those backbones,
-  whose results differ.
+- **Serial 101** was the committed serial-32 baseline of 13 backbones. It moves once
+  `rerun_32.sh` has run; the reruns section above has the procedure. The old runs of 55 and
+  86 move by the same procedure. The table counts them as kept.
 
 Decisions for the author:
 1. Serials 105 and 106 (seed-42 "Metric" runs, 106 still logging on 2026-09-28): ask the owner,

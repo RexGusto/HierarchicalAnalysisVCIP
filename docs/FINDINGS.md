@@ -34,12 +34,19 @@ learning-rate sweep. "ADA ratio" is 100 × standard deviation / mean accuracy ov
   - The `model_size` tables change for DeiT-3 Huge: mean accuracy 74.30 becomes 89.00, and
     standard deviation 31.39 becomes 2.19. `data/hierarchical_model_size.csv` holds runs
     added after the summary was written. The CVPRW26 model-size figure predates these runs.
+- **Baseline rows.** The serial-32 baseline rows come from wandb serial 32, run on the
+  Hierarchical code with serial 23's flags. The ICME26 and CVPRW26 baselines of 13 backbones
+  came from another codebase (serial 101), so `acc_pseudo_main`, the `main_results` tables and
+  the `compare_main_plot_*` figures differ from those papers. Over 584 configurations in both,
+  new minus old accuracy has median 0.00 and mean +0.53; 393 are within 1 point.
 - **Figures.** 60 figures: hyperparameter sweeps, clustering algorithm, extractors, baseline
   against real and pseudo-hierarchy, and SoyLocal from serials 39 and 32.
 
 ## 3 `vcip`: serials 54 (HPH) and 55 (baseline) on SoyLocal; 83–86 and 90–95 on leaf datasets
 
 - The SoyLocal and other-leaf summaries equal the committed ones value for value.
+- 170 of the 210 serial-55 baselines trained with a loss bug that used one image per batch
+  (`docs/NEXT_STEPS.md`), so the HPH-against-baseline gains below wait for the reruns.
 - **Maximum per backbone.** HPH minus baseline maximum on SoyLocal ranges from −2.00
   (ResNet Gluon) to +23.67 (ResNet SparK):
   - three backbones lose accuracy: Gluon, IN21k-MIIL and MoCo v3 ResNets;
@@ -61,15 +68,18 @@ learning-rate sweep. "ADA ratio" is 100 × standard deviation / mean accuracy ov
 ## 5 `robustness`: hierarchical against baseline, per optimizer
 
 Pairs are serial 23 against 32 on aircraft, CUB and cars, and 54 against 55 on SoyLocal: 21
-backbones, 84 pairs. Tables are in `results_all/robustness/`.
-- **Mean regret.** Hierarchical training lowers mean regret to the best run by 4.5 points
-  under SGD and 4.3 under AdamW, in 87% and 81% of pairs.
-- **Mean and maximum.** The mean over the grid rises by 6.4 and 6.1 points; the maximum rises
-  by 1.9 and 1.8.
+backbones, 84 pairs. Tables are in `results_all/robustness/`. The serial-55 SoyLocal
+baselines trained with a loss bug (`docs/NEXT_STEPS.md`), so `hier_vs_base_no_soylocal.csv`
+repeats the comparison on the 63 other pairs.
+- **Mean regret.** Hierarchical training lowers mean regret to the best run by 2.71 points
+  under SGD and 1.58 under AdamW, in 67% and 73% of the 63 pairs. With SoyLocal (84 pairs):
+  4.15 and 3.62.
+- **Mean and maximum.** Over the 63 pairs, the mean over the grid rises by 2.98 and 2.83
+  points; the maximum rises by 0.28 and 1.25. With SoyLocal: 5.49 and 4.93, and 1.34 and 1.31.
 - **Same under both optimizers.** A larger gradient from the summed loss cannot explain it:
   Adam ignores gradient scale, and every run clips the gradient norm to 1.0.
-- **Largest on the smallest data.** The mean rises by 12.0 points on SoyLocal and by 3.0 to
-  5.0 on the other three datasets.
+- **SoyLocal.** The mean rises by 13.0 points (SGD) and 11.2 (AdamW) on SoyLocal, against 0.4
+  to 6.6 on the other three datasets. The SoyLocal baselines are the buggy ones.
 - **Rankings.** Rankings by maximum disagree across datasets (Kendall τ −0.08 for aircraft
   against CUB); rankings by mean agree (τ 0.67–0.84).
 - **Noise floor.** The best backbone leads the second by 0.03–0.77 points. The three-seed
