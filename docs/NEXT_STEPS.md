@@ -167,7 +167,8 @@ wandb, 56, 59, 61, 81, 83, 85, 94 and 102. Serials 23, 24 and 54 train hierarchi
 **Serial 86, the wrong split.** `soyageing_r1_hierarchical_pseudo_{deit,vit_b}_70.csv` were
 built from `train_val.csv` (all rounds, 4,944 training images) instead of `train_val_R1.csv`
 (984). The other datasets and the ratio-90 files are right. Regenerate the two files before
-running `rerun_86.sh`.
+running `rerun_86.sh`. The pseudo-label CSVs and their generators are in
+`/mnt/hdd10tb/edwin/camel_cleanup/camel_hierarchical/pseudo_labels/`, copied from camel.
 
 **Serial 101, the TGDA baseline.** The committed serial-32 rows of 13 backbones were wandb
 serial 101: runs of `arkel23/TGDA` `tools/train_teacher.py` on plain timm models, with a
